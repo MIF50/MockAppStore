@@ -61,5 +61,13 @@ class Service {
         fetchGenericJSONData(stringUrl: URL_SOCIAL_APP, complition: complition)
     }
     
+    func fetchPageDetails(id:String, complition: @escaping (Result<SearchResult,Error>) -> ()) {
+        // https://itunes.apple.com/lookfor?id=971265422
+        let URL_STRING = "https://itunes.apple.com/lookup?id=\(id)"
+        fetchGenericJSONData(stringUrl: URL_STRING, complition: complition)
+
+
+    }
+    
     
 }
