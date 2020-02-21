@@ -26,6 +26,7 @@
 		307F3F7523DAB5290058FB15 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F3F7423DAB5290058FB15 /* BaseTabBarController.swift */; };
 		307F3F7823DADAE30058FB15 /* SearchAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F3F7723DADAE30058FB15 /* SearchAppController.swift */; };
 		3099D8F223F7B1B000B2A487 /* AppDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099D8F123F7B1B000B2A487 /* AppDetailsController.swift */; };
+		30CF2AF023FF85D0002EE37A /* AppDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CF2AEF23FF85D0002EE37A /* AppDetailCell.swift */; };
 		30DDD43123DF67A800B43B0B /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDD43023DF67A800B43B0B /* VerticalStackView.swift */; };
 		30EED40B23E89B5400728F98 /* BaseListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EED40A23E89B5400728F98 /* BaseListController.swift */; };
 		30EED40D23E89C1F00728F98 /* AppsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EED40C23E89C1F00728F98 /* AppsPageController.swift */; };
@@ -59,6 +60,7 @@
 		307F3F7423DAB5290058FB15 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		307F3F7723DADAE30058FB15 /* SearchAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppController.swift; sourceTree = "<group>"; };
 		3099D8F123F7B1B000B2A487 /* AppDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsController.swift; sourceTree = "<group>"; };
+		30CF2AEF23FF85D0002EE37A /* AppDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCell.swift; sourceTree = "<group>"; };
 		30DDD43023DF67A800B43B0B /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		30EED40A23E89B5400728F98 /* BaseListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListController.swift; sourceTree = "<group>"; };
 		30EED40C23E89C1F00728F98 /* AppsPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageController.swift; sourceTree = "<group>"; };
@@ -105,11 +107,11 @@
 		307F3F5E23DAB26F0058FB15 /* MIF50AppStore */ = {
 			isa = PBXGroup;
 			children = (
-				30F0A8C623FE44770061A5A0 /* Controllers */,
-				30F0A8B923FE404B0061A5A0 /* Reusable */,
 				30F0A8B323FE3F990061A5A0 /* Service */,
 				30F0A8B723FE400C0061A5A0 /* Helpers */,
 				30F0A8B423FE3FC20061A5A0 /* Model */,
+				30F0A8B923FE404B0061A5A0 /* Reusable */,
+				30F0A8C623FE44770061A5A0 /* Controllers */,
 				30F0A8C523FE44460061A5A0 /* Supporting Files */,
 				307F3F6323DAB26F0058FB15 /* ViewController.swift */,
 				307F3F6523DAB26F0058FB15 /* Main.storyboard */,
@@ -117,6 +119,14 @@
 				307F3F6D23DAB2700058FB15 /* Info.plist */,
 			);
 			path = MIF50AppStore;
+			sourceTree = "<group>";
+		};
+		30CF2AEE23FF859B002EE37A /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				30CF2AEF23FF85D0002EE37A /* AppDetailCell.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		30F0A8B323FE3F990061A5A0 /* Service */ = {
@@ -250,6 +260,7 @@
 		30F0A8C923FE45B40061A5A0 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				30CF2AEE23FF859B002EE37A /* Details */,
 				305A86F723ED1C02006E5ACF /* AppRowCell.swift */,
 				30EED40E23E89F9400728F98 /* AppsGroupCell.swift */,
 				305A86FD23ED2C8A006E5ACF /* AppsHeaderCell.swift */,
@@ -410,6 +421,7 @@
 				305A86F623ED1A38006E5ACF /* Extensions.swift in Sources */,
 				303D47F223DF59910013ED7E /* UIView+Layout.swift in Sources */,
 				305A870523ED48E8006E5ACF /* AppGroup.swift in Sources */,
+				30CF2AF023FF85D0002EE37A /* AppDetailCell.swift in Sources */,
 				307F3F6223DAB26F0058FB15 /* SceneDelegate.swift in Sources */,
 				30EED40D23E89C1F00728F98 /* AppsPageController.swift in Sources */,
 				30EED41123E8A40E00728F98 /* AppsHorizontalController.swift in Sources */,
