@@ -69,5 +69,10 @@ class Service {
 
     }
     
+    func fetchPreviewsAndRating(id: String,complition: @escaping (Result<Preview,Error>) -> ()) {
+        let URL_STRING = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(id)/sortby=mostrecent/json?l=en&cc=us"
+        fetchGenericJSONData(stringUrl: URL_STRING, complition: complition)
+    }
+    
     
 }

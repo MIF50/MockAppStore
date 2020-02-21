@@ -9,9 +9,10 @@
 import UIKit
 
 class AppDetailsController : BaseListContoller {
-    
-    fileprivate let cellId = "AppDetailCell"
-    fileprivate let previewCell = "PreviewCell"
+    /// resuable cell ids
+    fileprivate let appDetailCell = "AppDetailCell"
+    fileprivate let screenshotRowCell = "screenshotRowCell"
+    fileprivate let previewRowCell = "previewRowCell"
     
     fileprivate var app: ResultApp?
     
@@ -36,8 +37,9 @@ class AppDetailsController : BaseListContoller {
         collectionView.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
 
-        collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: previewCell)
+        collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: appDetailCell)
+        collectionView.register(ScreenshotRowCell.self, forCellWithReuseIdentifier: screenshotRowCell)
+        collectionView.register(PreviewRowCell.self, forCellWithReuseIdentifier: previewRowCell)
     }
     
 
@@ -51,21 +53,26 @@ class AppDetailsController : BaseListContoller {
 extension AppDetailsController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppDetailCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appDetailCell, for: indexPath) as! AppDetailCell
             if let app = app {
                 cell.appResult = app
             }
             return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: previewCell, for: indexPath) as! PreviewCell
+        } else if indexPath.item == 1{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: screenshotRowCell, for: indexPath) as! ScreenshotRowCell
             if let app = app {
                 cell.horizontalPreviewScreenshotController.app = app
             }
+            return cell
+        } else {
+            let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: previewRowCell, for: indexPath) as! PreviewRowCell
+            cell.horizontalPrviewController.appId = appId
+            
             return cell
         }
         
@@ -78,21 +85,23 @@ extension AppDetailsController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var height: CGFloat = 280
         if indexPath.item == 0 {
             // calculate the nesessary size for our cell somehowe
-                   let dummyCell = AppDetailCell.init(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
-                   if let app = app {
-                       dummyCell.appResult = app
-                   }
-                   dummyCell.layoutIfNeeded()
-                   
-                   let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-                   return .init(width: view.frame.width, height: estimatedSize.height)
+            let dummyCell = AppDetailCell.init(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
+            if let app = app {
+                dummyCell.appResult = app
+            }
+            dummyCell.layoutIfNeeded()
+            
+            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+            height = estimatedSize.height
+        } else if indexPath.item == 1 {
+            height = 500
         } else {
-            return .init(width: view.frame.width, height: 500)
+            height = 280
         }
-        
-       
+        return .init(width: view.frame.width, height: height)
         
     }
     

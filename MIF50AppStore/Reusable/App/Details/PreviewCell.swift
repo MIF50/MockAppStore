@@ -10,34 +10,34 @@ import UIKit
 
 class PreviewCell: UICollectionViewCell {
     
-    let previewLabel = UILabel(text: "Preview", font: .boldSystemFont(ofSize: 24))
-    let horizontalPreviewScreenshotController = previewScreenshotController()
+    let titleLabel = UILabel(text: "titile label", font: .boldSystemFont(ofSize: 18))
+    let authorLabel = UILabel(text: "author label", font: .systemFont(ofSize: 16))
+    let starLabel = UILabel(text: "star", font: .systemFont(ofSize: 16))
+    let bodyLabel = UILabel(text: "body text label with very big descrition \n body text label with very big descrition \nbody text label with very big descrition ", font: .systemFont(ofSize: 18),numberOfLine: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        arrangeLayout()
         
+        initView()
+        arrangeLayout()
+    }
+    
+    private func initView() {
+        backgroundColor = #colorLiteral(red: 0.9553928684, green: 0.9553928684, blue: 0.9553928684, alpha: 1)
+        layer.cornerRadius = 16
+        clipsToBounds = true
     }
     
     private func arrangeLayout() {
-        addSubview(previewLabel)
-        previewLabel.anchor(
-                   top: topAnchor,
-                   leading: leadingAnchor,
-                   bottom: nil,
-                   trailing: trailingAnchor,
-                   padding: .init(top: 0, left: 20, bottom: 0, right: 20)
-               )
+        let topHorizontalStack = UIStackView(arrangeViews: [titleLabel,authorLabel])
+        let stackview = VerticalStackView(arrangedSubViews: [
+            topHorizontalStack,
+            starLabel,
+            bodyLabel
+        ], spacing: 12)
         
-        addSubview(horizontalPreviewScreenshotController.view)
-        horizontalPreviewScreenshotController.view.anchor(
-            top: previewLabel.bottomAnchor,
-            leading: leadingAnchor,
-            bottom: bottomAnchor,
-            trailing: trailingAnchor,
-            padding: .init(top: 8, left: 0, bottom: 0, right: 0)
-        )
+        addSubview(stackview)
+        stackview.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
     }
     
     required init?(coder: NSCoder) {
