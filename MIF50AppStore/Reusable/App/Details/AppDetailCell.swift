@@ -10,6 +10,18 @@ import UIKit
 
 class AppDetailCell: UICollectionViewCell {
     
+    var appResult: ResultApp! {
+        didSet {
+            print("image Url \(appResult?.artworkUrl100 ?? "image nil")")
+            appIconImage.sd_setImage(with: URL(string : appResult?.artworkUrl100 ?? ""))
+
+            appName.text = appResult.trackName
+            btnPrice.setTitle(appResult.formattedPrice, for: .normal)
+            releaseLabel.text = appResult.releaseNotes
+
+        }
+    }
+    
     let appIconImage = UIImageView(cornerRadius: 16)
     
     let appName = UILabel(text: "AppName", font: .boldSystemFont(ofSize: 24),numberOfLine: 2)
@@ -24,10 +36,7 @@ class AppDetailCell: UICollectionViewCell {
         super.init(frame: frame)
         
         initView()
-        
         arrangeLayout()
-        
-        
     }
     
     
@@ -51,7 +60,7 @@ class AppDetailCell: UICollectionViewCell {
             appName,
             UIStackView(arrangedSubviews: [btnPrice,UIView()]),
             UIView()
-        ], spacing: 8)
+        ], spacing: 12)
         
         let topHorizontalStack = UIStackView(arrangeViews: [appIconImage,leftTopVerticalStack], customSpacing: 12)
         

@@ -12,12 +12,17 @@ class AppDetailsController : BaseListContoller {
     
     fileprivate let cellId = "AppDetailCell"
     
+    fileprivate var app: ResultApp?
+    
     var appId :String! {
         didSet {
             Service.share.fetchPageDetails(id: appId) {  res in
                 switch res {
                 case .success(let searchResult):
-                    print(searchResult.results.first?.releaseNotes ?? "")
+                    self.app = searchResult.results.first
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
                 case .failure(let error ):
                     print("error \(error)")
                 }
@@ -41,16 +46,16 @@ class AppDetailsController : BaseListContoller {
 
 // MARK: - UICollectionViewDataSource
 extension AppDetailsController {
-    //1
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
     
-    
-    //3
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppDetailCell
-        // Configure the cell
+        if let app = app {
+            cell.appResult = app
+        }
         return cell
     }
     
@@ -58,10 +63,18 @@ extension AppDetailsController {
 
 // MARK: - Collection View Flow Layout Delegate
 extension AppDetailsController : UICollectionViewDelegateFlowLayout {
-    //1
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 300)
+        // calculate the nesessary size for our cell somehowe
+        let dummyCell = AppDetailCell.init(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
+        if let app = app {
+            dummyCell.appResult = app
+        }
+        dummyCell.layoutIfNeeded()
+        
+        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        return .init(width: view.frame.width, height: estimatedSize.height)
         
     }
     
