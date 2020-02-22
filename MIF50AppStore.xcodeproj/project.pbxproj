@@ -35,6 +35,8 @@
 		3099D8F223F7B1B000B2A487 /* AppDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099D8F123F7B1B000B2A487 /* AppDetailsController.swift */; };
 		30CF2AF023FF85D0002EE37A /* AppDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CF2AEF23FF85D0002EE37A /* AppDetailCell.swift */; };
 		30DDD43123DF67A800B43B0B /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDD43023DF67A800B43B0B /* VerticalStackView.swift */; };
+		30E9780024016CC000AE9EB9 /* TodayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E977FF24016CC000AE9EB9 /* TodayController.swift */; };
+		30E9780324016E3000AE9EB9 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E9780224016E3000AE9EB9 /* TodayCell.swift */; };
 		30EED40B23E89B5400728F98 /* BaseListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EED40A23E89B5400728F98 /* BaseListController.swift */; };
 		30EED40D23E89C1F00728F98 /* AppsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EED40C23E89C1F00728F98 /* AppsPageController.swift */; };
 		30EED40F23E89F9400728F98 /* AppsGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EED40E23E89F9400728F98 /* AppsGroupCell.swift */; };
@@ -76,6 +78,8 @@
 		3099D8F123F7B1B000B2A487 /* AppDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsController.swift; sourceTree = "<group>"; };
 		30CF2AEF23FF85D0002EE37A /* AppDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCell.swift; sourceTree = "<group>"; };
 		30DDD43023DF67A800B43B0B /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
+		30E977FF24016CC000AE9EB9 /* TodayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayController.swift; sourceTree = "<group>"; };
+		30E9780224016E3000AE9EB9 /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		30EED40A23E89B5400728F98 /* BaseListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListController.swift; sourceTree = "<group>"; };
 		30EED40C23E89C1F00728F98 /* AppsPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageController.swift; sourceTree = "<group>"; };
 		30EED40E23E89F9400728F98 /* AppsGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsGroupCell.swift; sourceTree = "<group>"; };
@@ -147,6 +151,14 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
+		30E9780124016E1F00AE9EB9 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				30E9780224016E3000AE9EB9 /* TodayCell.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
 		30F0A8B323FE3F990061A5A0 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +198,7 @@
 		30F0A8B923FE404B0061A5A0 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				30E9780124016E1F00AE9EB9 /* Today */,
 				30F0A8C923FE45B40061A5A0 /* App */,
 				30F0A8BB23FE40630061A5A0 /* Search */,
 			);
@@ -211,6 +224,7 @@
 		30F0A8BF23FE40CA0061A5A0 /* Today */ = {
 			isa = PBXGroup;
 			children = (
+				30E977FF24016CC000AE9EB9 /* TodayController.swift */,
 			);
 			name = Today;
 			path = ..;
@@ -427,6 +441,7 @@
 				30954FDC24005718007EA11A /* PeviewsControllers.swift in Sources */,
 				307F3F7523DAB5290058FB15 /* BaseTabBarController.swift in Sources */,
 				30151BC323F1D618002A7F33 /* SocialApp.swift in Sources */,
+				30E9780024016CC000AE9EB9 /* TodayController.swift in Sources */,
 				30243B8323E3F04A00C04179 /* SearchResult.swift in Sources */,
 				307F3F6423DAB26F0058FB15 /* ViewController.swift in Sources */,
 				307F3F7823DADAE30058FB15 /* SearchAppController.swift in Sources */,
@@ -448,6 +463,7 @@
 				30954FD824004739007EA11A /* ScreenshotRowCell.swift in Sources */,
 				305A86F623ED1A38006E5ACF /* Extensions.swift in Sources */,
 				303D47F223DF59910013ED7E /* UIView+Layout.swift in Sources */,
+				30E9780324016E3000AE9EB9 /* TodayCell.swift in Sources */,
 				305A870523ED48E8006E5ACF /* AppGroup.swift in Sources */,
 				30CF2AF023FF85D0002EE37A /* AppDetailCell.swift in Sources */,
 				307F3F6223DAB26F0058FB15 /* SceneDelegate.swift in Sources */,
