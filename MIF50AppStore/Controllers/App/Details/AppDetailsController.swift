@@ -17,6 +17,8 @@ class AppDetailsController : BaseListContoller {
     fileprivate var app: ResultApp?
     fileprivate var preview: Preview?
     
+    fileprivate let appId: String
+    
     // create load indicator
      let activityIndicatorView : UIActivityIndicatorView = {
          let avi = UIActivityIndicatorView(style: .whiteLarge)
@@ -26,40 +28,16 @@ class AppDetailsController : BaseListContoller {
          return avi
      }()
     
-    var appId :String! {
-        didSet {
-            let dispatcherGroup = DispatchGroup()
-            dispatcherGroup.enter()
-            Service.share.fetchPageDetails(id: appId) {  res in
-                dispatcherGroup.leave()
-                switch res {
-                case .success(let searchResult):
-                    self.app = searchResult.results.first
-                case .failure(let error ):
-                    print("fetchPageDetails Error \(error)")
-                }
-            }
-            
-            dispatcherGroup.enter()
-            Service.share.fetchPreviewsAndRating(id: appId) { (res) in
-                dispatcherGroup.leave()
-                switch res {
-                case .success(let preview) :
-                    self.preview = preview
-                case .failure(let error):
-                    print("fetchPreviewsAndRating Error \(error)")
-                }
-            }
-            
-            dispatcherGroup.notify(queue: .main) {
-                self.activityIndicatorView.stopAnimating()
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
+    // dependency injection constructor
+    init(appId: String) {
+        self.appId = appId
+        super.init()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
@@ -71,6 +49,40 @@ class AppDetailsController : BaseListContoller {
         collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: appDetailCell)
         collectionView.register(ScreenshotRowCell.self, forCellWithReuseIdentifier: screenshotRowCell)
         collectionView.register(PreviewRowCell.self, forCellWithReuseIdentifier: previewRowCell)
+        
+        fetchData()
+    }
+    
+    private func fetchData(){
+        let dispatcherGroup = DispatchGroup()
+        dispatcherGroup.enter()
+        Service.share.fetchPageDetails(id: appId) {  res in
+            dispatcherGroup.leave()
+            switch res {
+            case .success(let searchResult):
+                self.app = searchResult.results.first
+            case .failure(let error ):
+                print("fetchPageDetails Error \(error)")
+            }
+        }
+        
+        dispatcherGroup.enter()
+        Service.share.fetchPreviewsAndRating(id: appId) { (res) in
+            dispatcherGroup.leave()
+            switch res {
+            case .success(let preview) :
+                self.preview = preview
+            case .failure(let error):
+                print("fetchPreviewsAndRating Error \(error)")
+            }
+        }
+        
+        dispatcherGroup.notify(queue: .main) {
+            self.activityIndicatorView.stopAnimating()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
 

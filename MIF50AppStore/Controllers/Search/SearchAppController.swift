@@ -9,7 +9,7 @@
 import UIKit
 
 
-class SearchAppController: BaseListContoller, UICollectionViewDelegateFlowLayout ,UISearchBarDelegate {
+class SearchAppController: BaseListContoller ,UISearchBarDelegate {
     
     fileprivate let cellId = "Cell"
     
@@ -21,7 +21,7 @@ class SearchAppController: BaseListContoller, UICollectionViewDelegateFlowLayout
     
     /// label for start screen and no data in collection view
     fileprivate let enterSearchTermLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "please enter search term above .... "
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -30,10 +30,10 @@ class SearchAppController: BaseListContoller, UICollectionViewDelegateFlowLayout
     
     /// timer for delay search speed when typing...
     var timer: Timer?
-       
     
-   
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
@@ -53,12 +53,12 @@ class SearchAppController: BaseListContoller, UICollectionViewDelegateFlowLayout
         navigationItem.searchController = self.searchController
         navigationItem.hidesSearchBarWhenScrolling = true
         /// for ios 13
-//        searchController.showsSearchResultsController = true
+        // searchController.showsSearchResultsController = true
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.becomeFirstResponder()
         searchController.searchBar.delegate = self
     }
-   
+    
     /// delegate listener for chaning in search bar ...
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
@@ -91,23 +91,41 @@ class SearchAppController: BaseListContoller, UICollectionViewDelegateFlowLayout
     }
     
     
+}
+
+
+// MARK: - UICollectionViewDataSource
+extension SearchAppController {
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let appId = String(appResults[indexPath.item].trackId)
+        let appDetailVC = AppDetailsController(appId: appId)
+        navigationController?.pushViewController(appDetailVC, animated: true)
+        
+    }
     
     /// return number of cell in collection view
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         enterSearchTermLabel.isHidden = appResults.count != 0
         return appResults.count
     }
+    
     /// use register UICollectionViewCell and reusable for collection view and pass data for it
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SearchResultCell
         cell.result = appResults[indexPath.item]
         return cell
     }
+    
+}
+
+// MARK: - Collection View Flow Layout Delegate
+extension SearchAppController : UICollectionViewDelegateFlowLayout {
+    
     /// use to set width and height of cell in collection view  --- implement of UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: collectionView.frame.width, height: 320)
     }
-    
     
     
 }
