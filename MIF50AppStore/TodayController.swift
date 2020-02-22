@@ -12,6 +12,8 @@ class TodayController: BaseListContoller {
     
     fileprivate let todayCellId = "todayCellId"
     
+    var startingFrame: CGRect?
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationController?.navigationBar.isHidden = true
@@ -20,9 +22,7 @@ class TodayController: BaseListContoller {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-//      navigationController?.navigationBar.isHidden = true
         collectionView.backgroundColor = #colorLiteral(red: 0.9410567326, green: 0.9410567326, blue: 0.9410567326, alpha: 1)
-        
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: todayCellId)
     }
 }
@@ -30,8 +30,31 @@ class TodayController: BaseListContoller {
 
 // MARK: - UICollectionViewDataSource
 extension TodayController {
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("animate fullscreen somewho ....")
+        let redView = UIView()
+        redView.backgroundColor = .red
+        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
+        view.addSubview(redView)
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        // absolute coordinate for cell
+        guard let startFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
+        startingFrame = startFrame
+        redView.frame = startFrame
+        redView.layer.cornerRadius = 16
+        
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            redView.frame = self.view.frame
+        }, completion: nil)
+    }
+    
+    @objc func handleRemoveRedView(gesture : UITapGestureRecognizer) {
+        // access startingFrame
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            gesture.view?.frame = self.startingFrame ?? .zero
+        }, completion: { _ in
+            gesture.view?.removeFromSuperview()
+        })
     }
     
     override func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int {
