@@ -23,14 +23,10 @@ class AppDetailCell: UICollectionViewCell {
     }
     
     let appIconImage = UIImageView(cornerRadius: 16)
-    
-    let appName = UILabel(text: "AppName", font: .boldSystemFont(ofSize: 24),numberOfLine: 2)
-    
-    let btnPrice = UIButton(title: "$4.99")
-    
-    let whatNewLabel = UILabel(text: "what new ", font: .boldSystemFont(ofSize: 22))
-    
-    let releaseLabel = UILabel(text: "release notes ", font: .systemFont(ofSize: 18), numberOfLine: 0)
+    let appName = UILabel(text: "", font: .boldSystemFont(ofSize: 24),numberOfLine: 2)
+    let btnPrice = UIButton(title: "")
+    let whatNewLabel = UILabel(text: "", font: .boldSystemFont(ofSize: 22))
+    let releaseLabel = UILabel(text: "", font: .systemFont(ofSize: 18), numberOfLine: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,12 +38,11 @@ class AppDetailCell: UICollectionViewCell {
     
     private func initView(){
         // app icon image
-        appIconImage.backgroundColor = .red
         appIconImage.constrainWidth(constant: 140)
         appIconImage.constrainHeight(constant: 140)
         
         // btn price
-        btnPrice.backgroundColor = UIColor.blue
+        btnPrice.backgroundColor = #colorLiteral(red: 0, green: 0.4823431862, blue: 1, alpha: 1)
         btnPrice.constrainHeight(constant: 32)
         btnPrice.constrainWidth(constant: 90)
         btnPrice.layer.cornerRadius = 32 / 2

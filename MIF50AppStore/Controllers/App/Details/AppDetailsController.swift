@@ -17,26 +17,44 @@ class AppDetailsController : BaseListContoller {
     fileprivate var app: ResultApp?
     fileprivate var preview: Preview?
     
+    // create load indicator
+     let activityIndicatorView : UIActivityIndicatorView = {
+         let avi = UIActivityIndicatorView(style: .whiteLarge)
+         avi.color = .black
+         avi.startAnimating()
+         avi.hidesWhenStopped = true
+         return avi
+     }()
+    
     var appId :String! {
         didSet {
+            let dispatcherGroup = DispatchGroup()
+            dispatcherGroup.enter()
             Service.share.fetchPageDetails(id: appId) {  res in
+                dispatcherGroup.leave()
                 switch res {
                 case .success(let searchResult):
                     self.app = searchResult.results.first
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
                 case .failure(let error ):
-                    print("error \(error)")
+                    print("fetchPageDetails Error \(error)")
                 }
             }
             
+            dispatcherGroup.enter()
             Service.share.fetchPreviewsAndRating(id: appId) { (res) in
+                dispatcherGroup.leave()
                 switch res {
                 case .success(let preview) :
                     self.preview = preview
                 case .failure(let error):
-                    print("PreivewController Error \(error)")
+                    print("fetchPreviewsAndRating Error \(error)")
+                }
+            }
+            
+            dispatcherGroup.notify(queue: .main) {
+                self.activityIndicatorView.stopAnimating()
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
                 }
             }
         }
@@ -46,6 +64,9 @@ class AppDetailsController : BaseListContoller {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
+        
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.fillSuperview()
 
         collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: appDetailCell)
         collectionView.register(ScreenshotRowCell.self, forCellWithReuseIdentifier: screenshotRowCell)
@@ -113,6 +134,10 @@ extension AppDetailsController : UICollectionViewDelegateFlowLayout {
         }
         return .init(width: view.frame.width, height: height)
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: 0, bottom: 16, right: 0)
     }
     
 }

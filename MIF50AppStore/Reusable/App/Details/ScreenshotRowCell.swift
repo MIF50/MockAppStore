@@ -10,7 +10,7 @@ import UIKit
 
 class ScreenshotRowCell: UICollectionViewCell {
     
-    let previewLabel = UILabel(text: "Preview", font: .boldSystemFont(ofSize: 24))
+    let previewLabel = UILabel(text: "", font: .boldSystemFont(ofSize: 24))
     let horizontalPreviewScreenshotController = previewScreenshotController()
     
     override init(frame: CGRect) {
