@@ -11,18 +11,27 @@ import UIKit
 class PreviewsContoller: HorizontalSnappingController {
     fileprivate let previewCellId = "previewCellId"
     
-    var appId: String! {
+    
+    var preview: Preview? {
         didSet {
-            Service.share.fetchPreviewsAndRating(id: appId) { (res) in
-                switch res {
-                case .success(let preview) :
-                    print("preview and rating \(preview)")
-                case .failure(let error):
-                    print("PreivewController Error \(error)")
-                }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
             }
         }
     }
+    
+//    var appId: String! {
+//        didSet {
+//            Service.share.fetchPreviewsAndRating(id: appId) { (res) in
+//                switch res {
+//                case .success(let preview) :
+//                    self.preview = preview
+//                case .failure(let error):
+//                    print("PreivewController Error \(error)")
+//                }
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +46,14 @@ class PreviewsContoller: HorizontalSnappingController {
 extension PreviewsContoller {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return preview?.feed.entry.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: previewCellId, for: indexPath) as! PreviewCell
-        
+        if let entry = preview?.feed.entry[indexPath.item] {
+            cell.entry = entry
+        }
         return cell
     }
     

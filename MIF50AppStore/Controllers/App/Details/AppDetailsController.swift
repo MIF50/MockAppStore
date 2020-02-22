@@ -15,6 +15,7 @@ class AppDetailsController : BaseListContoller {
     fileprivate let previewRowCell = "previewRowCell"
     
     fileprivate var app: ResultApp?
+    fileprivate var preview: Preview?
     
     var appId :String! {
         didSet {
@@ -27,6 +28,15 @@ class AppDetailsController : BaseListContoller {
                     }
                 case .failure(let error ):
                     print("error \(error)")
+                }
+            }
+            
+            Service.share.fetchPreviewsAndRating(id: appId) { (res) in
+                switch res {
+                case .success(let preview) :
+                    self.preview = preview
+                case .failure(let error):
+                    print("PreivewController Error \(error)")
                 }
             }
         }
@@ -71,7 +81,7 @@ extension AppDetailsController {
             return cell
         } else {
             let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: previewRowCell, for: indexPath) as! PreviewRowCell
-            cell.horizontalPrviewController.appId = appId
+            cell.horizontalPrviewController.preview = preview
             
             return cell
         }

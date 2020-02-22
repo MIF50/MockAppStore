@@ -10,6 +10,14 @@ import UIKit
 
 class PreviewCell: UICollectionViewCell {
     
+    var entry: Entry! {
+        didSet {
+            titleLabel.text = entry.title.label
+            authorLabel.text = entry.author.name.label
+            bodyLabel.text = entry.content.label
+        }
+    }
+    
     let titleLabel = UILabel(text: "titile label", font: .boldSystemFont(ofSize: 18))
     let authorLabel = UILabel(text: "author label", font: .systemFont(ofSize: 16))
     let starLabel = UILabel(text: "star", font: .systemFont(ofSize: 16))
@@ -29,7 +37,9 @@ class PreviewCell: UICollectionViewCell {
     }
     
     private func arrangeLayout() {
-        let topHorizontalStack = UIStackView(arrangeViews: [titleLabel,authorLabel])
+        let topHorizontalStack = UIStackView(arrangeViews: [titleLabel,authorLabel],customSpacing: 8)
+        titleLabel.setContentCompressionResistancePriority(.init(0), for: .horizontal)
+        authorLabel.textAlignment = .right
         let stackview = VerticalStackView(arrangedSubViews: [
             topHorizontalStack,
             starLabel,
