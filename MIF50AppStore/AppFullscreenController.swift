@@ -10,10 +10,14 @@ import UIKit
 
 class AppFullscreenController: UITableViewController {
     
+    var dismissHandler: (() -> ())?
+    var todayItem: TodayItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
         
     }
     
@@ -24,11 +28,19 @@ class AppFullscreenController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            return AppFullscreenHeaderCell()
+            let headerCell = AppFullscreenHeaderCell()
+            headerCell.closeBtn.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+            headerCell.todayCell.todayItem = todayItem
+            return headerCell
         }
         let cell = AppFullscreenDescriptionCell()
         
         return cell
+    }
+    
+    @objc func handleDismiss(button : UIButton){
+        button.isHidden = true
+        dismissHandler?()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -38,12 +50,4 @@ class AppFullscreenController: UITableViewController {
         return super.tableView(tableView, heightForRowAt: indexPath)
     }
     
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = TodayCell()
-//        return header
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 450
-//    }
 }

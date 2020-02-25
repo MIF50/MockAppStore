@@ -12,6 +12,11 @@ class TodayController: BaseListContoller {
     
     fileprivate let todayCellId = "todayCellId"
     
+    let items = [
+          TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white),
+          TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1))
+      ]
+    
     var startingFrame: CGRect?
     var appFullscreenVC: AppFullscreenController!
     
@@ -40,9 +45,13 @@ extension TodayController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let appFullscreenVC = AppFullscreenController()
-        let redView = appFullscreenVC.view!
-        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
-        view.addSubview(redView)
+        appFullscreenVC.todayItem = items[indexPath.item]
+        appFullscreenVC.dismissHandler = {
+            self.handleRemoveRedView()
+        }
+        let appFullscreenView = appFullscreenVC.view!
+//        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
+        view.addSubview(appFullscreenView)
         addChild(appFullscreenVC)
         self.appFullscreenVC = appFullscreenVC
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
@@ -50,14 +59,14 @@ extension TodayController {
         guard let startFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
         startingFrame = startFrame
 
-        redView.translatesAutoresizingMaskIntoConstraints = false
-        topConstraint = redView.topAnchor.constraint(equalTo: view.topAnchor, constant: startFrame.origin.y)
-        leadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startFrame.origin.x)
-        widthConstraint = redView.widthAnchor.constraint(equalToConstant: startFrame.width)
-        heightConstraint = redView.heightAnchor.constraint(equalToConstant: startFrame.height)
+        appFullscreenView.translatesAutoresizingMaskIntoConstraints = false
+        topConstraint = appFullscreenView.topAnchor.constraint(equalTo: view.topAnchor, constant: startFrame.origin.y)
+        leadingConstraint = appFullscreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startFrame.origin.x)
+        widthConstraint = appFullscreenView.widthAnchor.constraint(equalToConstant: startFrame.width)
+        heightConstraint = appFullscreenView.heightAnchor.constraint(equalToConstant: startFrame.height)
         [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach({ $0?.isActive = true })
         self.view.layoutIfNeeded() // starts animation
-        redView.layer.cornerRadius = 16
+        appFullscreenView.layer.cornerRadius = 16
 
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
@@ -70,7 +79,7 @@ extension TodayController {
         }, completion: nil)
     }
     
-    @objc func handleRemoveRedView(gesture : UITapGestureRecognizer) {
+    @objc func handleRemoveRedView() {
         // access startingFrame
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
 
@@ -84,7 +93,7 @@ extension TodayController {
 
             self.handleAppFullscreenDismissal()
         }, completion: { _ in
-            gesture.view?.removeFromSuperview()
+            self.appFullscreenVC.view?.removeFromSuperview()
             self.appFullscreenVC.removeFromParent()
         })
     }
@@ -102,12 +111,13 @@ extension TodayController {
     }
     
     override func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return items.count
     }
     
     
     override func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: todayCellId, for: indexPath) as! TodayCell
+        cell.todayItem = items[indexPath.item]
         return cell
     }
 }

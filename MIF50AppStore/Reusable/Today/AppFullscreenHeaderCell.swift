@@ -13,7 +13,9 @@ class AppFullscreenHeaderCell: UITableViewCell {
     let todayCell = TodayCell()
     let closeBtn : UIButton = {
         let btn = UIButton()
-        btn.setImage(#imageLiteral(resourceName: "close_button"), for: .normal)
+        let buttonImage = UIImage(named: "close_button")?.withRenderingMode(.alwaysTemplate)
+        btn.setImage(buttonImage, for: .normal)
+        btn.tintColor = #colorLiteral(red: 0.118634904, green: 0.5518733931, blue: 0.9639316307, alpha: 1)
         return btn
     }()
     
