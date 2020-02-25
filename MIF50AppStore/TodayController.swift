@@ -13,7 +13,13 @@ class TodayController: BaseListContoller {
     fileprivate let todayCellId = "todayCellId"
     
     var startingFrame: CGRect?
-    var appFullscreenVC: UIViewController!
+    var appFullscreenVC: AppFullscreenController!
+    
+    // auto layout constraint animations
+    var topConstraint: NSLayoutConstraint?
+    var leadingConstraint: NSLayoutConstraint?
+    var widthConstraint: NSLayoutConstraint?
+    var heightConstraint: NSLayoutConstraint?
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -43,15 +49,23 @@ extension TodayController {
         // absolute coordinate for cell
         guard let startFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
         startingFrame = startFrame
-        redView.frame = startFrame
+
+        redView.translatesAutoresizingMaskIntoConstraints = false
+        topConstraint = redView.topAnchor.constraint(equalTo: view.topAnchor, constant: startFrame.origin.y)
+        leadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startFrame.origin.x)
+        widthConstraint = redView.widthAnchor.constraint(equalToConstant: startFrame.width)
+        heightConstraint = redView.heightAnchor.constraint(equalToConstant: startFrame.height)
+        [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach({ $0?.isActive = true })
+        self.view.layoutIfNeeded() // starts animation
         redView.layer.cornerRadius = 16
-        // why i don't use transition delegate?
-        
-        // we're using frames for animation
-        // frames aren't reliable enough for animations
+
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            redView.frame = self.view.frame
+            self.topConstraint?.constant = 0
+            self.leadingConstraint?.constant = 0
+            self.widthConstraint?.constant = self.view.frame.width
+            self.heightConstraint?.constant = self.view.frame.height
+            self.view.layoutIfNeeded() // starts animation
             self.beginAnimationAppFullscreen()
         }, completion: nil)
     }
@@ -59,7 +73,15 @@ extension TodayController {
     @objc func handleRemoveRedView(gesture : UITapGestureRecognizer) {
         // access startingFrame
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            gesture.view?.frame = self.startingFrame ?? .zero
+
+            guard let startFrame = self.startingFrame else { return }
+            self.topConstraint?.constant = startFrame.origin.y
+            self.leadingConstraint?.constant = startFrame.origin.x
+            self.widthConstraint?.constant = startFrame.width
+            self.heightConstraint?.constant = startFrame.height
+            self.view.layoutIfNeeded() // starts animation
+            self.appFullscreenVC.tableView.contentOffset = .zero
+
             self.handleAppFullscreenDismissal()
         }, completion: { _ in
             gesture.view?.removeFromSuperview()

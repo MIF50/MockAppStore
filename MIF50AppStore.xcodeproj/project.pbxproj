@@ -25,6 +25,7 @@
 		307F3F6C23DAB2700058FB15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307F3F6A23DAB2700058FB15 /* LaunchScreen.storyboard */; };
 		307F3F7523DAB5290058FB15 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F3F7423DAB5290058FB15 /* BaseTabBarController.swift */; };
 		307F3F7823DADAE30058FB15 /* SearchAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F3F7723DADAE30058FB15 /* SearchAppController.swift */; };
+		308369DE24050EED0054C6B1 /* AppFullscreenHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308369DD24050EED0054C6B1 /* AppFullscreenHeaderCell.swift */; };
 		30954FD6240046B4007EA11A /* PreviewScreenshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30954FD5240046B4007EA11A /* PreviewScreenshotController.swift */; };
 		30954FD824004739007EA11A /* ScreenshotRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30954FD724004739007EA11A /* ScreenshotRowCell.swift */; };
 		30954FDA2400480E007EA11A /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30954FD92400480E007EA11A /* ScreenshotCell.swift */; };
@@ -70,6 +71,7 @@
 		307F3F6D23DAB2700058FB15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307F3F7423DAB5290058FB15 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		307F3F7723DADAE30058FB15 /* SearchAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppController.swift; sourceTree = "<group>"; };
+		308369DD24050EED0054C6B1 /* AppFullscreenHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullscreenHeaderCell.swift; sourceTree = "<group>"; };
 		30954FD5240046B4007EA11A /* PreviewScreenshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreenshotController.swift; sourceTree = "<group>"; };
 		30954FD724004739007EA11A /* ScreenshotRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotRowCell.swift; sourceTree = "<group>"; };
 		30954FD92400480E007EA11A /* ScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCell.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				30E9780224016E3000AE9EB9 /* TodayCell.swift */,
 				30E978062401B63300AE9EB9 /* AppFullscreenDescriptionCell.swift */,
+				308369DD24050EED0054C6B1 /* AppFullscreenHeaderCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				303D47F223DF59910013ED7E /* UIView+Layout.swift in Sources */,
 				30E9780324016E3000AE9EB9 /* TodayCell.swift in Sources */,
 				30E978072401B63300AE9EB9 /* AppFullscreenDescriptionCell.swift in Sources */,
+				308369DE24050EED0054C6B1 /* AppFullscreenHeaderCell.swift in Sources */,
 				305A870523ED48E8006E5ACF /* AppGroup.swift in Sources */,
 				30CF2AF023FF85D0002EE37A /* AppDetailCell.swift in Sources */,
 				307F3F6223DAB26F0058FB15 /* SceneDelegate.swift in Sources */,
