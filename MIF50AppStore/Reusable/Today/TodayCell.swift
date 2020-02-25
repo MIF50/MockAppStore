@@ -16,8 +16,11 @@ class TodayCell: UICollectionViewCell {
             titleLabel.text = todayItem.title
             imageView.image = todayItem.image
             descriptionLabel.text = todayItem.description
+            backgroundColor = todayItem.backgroundColor
         }
     }
+    
+    var topConstraint: NSLayoutConstraint!
     
     let categoryLabel = UILabel(text: "LIFE HACK", font: .boldSystemFont(ofSize: 20))
     let titleLabel = UILabel(text: "Utilizing your Time", font: .boldSystemFont(ofSize: 28))
@@ -43,8 +46,12 @@ class TodayCell: UICollectionViewCell {
         ], spacing: 8)
         
         addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 24, left: 24, bottom: 24, right: 24))
-            }
+//        stackView.fillSuperview(padding: .init(top: 24, left: 24, bottom: 24, right: 24))
+        stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,
+                         padding: .init(top: 0, left: 24, bottom: 24, right: 24))
+        topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
+        topConstraint.isActive = true
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

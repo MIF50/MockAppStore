@@ -54,6 +54,7 @@ extension TodayController {
         view.addSubview(appFullscreenView)
         addChild(appFullscreenVC)
         self.appFullscreenVC = appFullscreenVC
+        self.collectionView.isUserInteractionEnabled = false
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         // absolute coordinate for cell
         guard let startFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
@@ -67,6 +68,8 @@ extension TodayController {
         [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach({ $0?.isActive = true })
         self.view.layoutIfNeeded() // starts animation
         appFullscreenView.layer.cornerRadius = 16
+        
+       
 
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
@@ -76,6 +79,10 @@ extension TodayController {
             self.heightConstraint?.constant = self.view.frame.height
             self.view.layoutIfNeeded() // starts animation
             self.beginAnimationAppFullscreen()
+            
+             guard let headerCell = self.appFullscreenVC.tableView.cellForRow(at: [0,0]) as? AppFullscreenHeaderCell else { return }
+            headerCell.todayCell.topConstraint.constant = 48
+            headerCell.layoutIfNeeded()
         }, completion: nil)
     }
     
@@ -92,9 +99,14 @@ extension TodayController {
             self.appFullscreenVC.tableView.contentOffset = .zero
 
             self.handleAppFullscreenDismissal()
+            
+            guard let headerCell = self.appFullscreenVC.tableView.cellForRow(at: [0,0]) as? AppFullscreenHeaderCell else { return }
+                      headerCell.todayCell.topConstraint.constant = 24
+                      headerCell.layoutIfNeeded()
         }, completion: { _ in
             self.appFullscreenVC.view?.removeFromSuperview()
             self.appFullscreenVC.removeFromParent()
+            self.collectionView.isUserInteractionEnabled = true
         })
     }
     
