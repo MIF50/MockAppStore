@@ -21,7 +21,7 @@ class TodayMultipleCell: BaseTodayCell {
     let categoryLabel = UILabel(text: "LIFE HACK", font: .boldSystemFont(ofSize: 20))
     let titleLabel = UILabel(text: "Utilizing your Time", font: .boldSystemFont(ofSize: 32),numberOfLine: 2)
     
-    let multipleAppVC = UIViewController()
+    let multipleAppVC = TodayMultipleAppsController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +33,6 @@ class TodayMultipleCell: BaseTodayCell {
     private func  initView() {
         backgroundColor = .white
         layer.cornerRadius = 16
-        multipleAppVC.view.backgroundColor = .red
     }
     
     private func arrangeLayout() {

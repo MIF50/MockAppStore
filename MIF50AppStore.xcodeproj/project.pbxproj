@@ -19,6 +19,8 @@
 		305A870523ED48E8006E5ACF /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305A870423ED48E8006E5ACF /* AppGroup.swift */; };
 		306CE5DB2408C70B001B76D1 /* BaseTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CE5DA2408C70B001B76D1 /* BaseTodayCell.swift */; };
 		306CE5DD2408C760001B76D1 /* TodayMultipleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CE5DC2408C760001B76D1 /* TodayMultipleCell.swift */; };
+		306CE5DF2408D534001B76D1 /* TodayMultipleAppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CE5DE2408D534001B76D1 /* TodayMultipleAppsController.swift */; };
+		306CE5E12408D5AE001B76D1 /* MultipleAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CE5E02408D5AE001B76D1 /* MultipleAppCell.swift */; };
 		307F3F6023DAB26F0058FB15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F3F5F23DAB26F0058FB15 /* AppDelegate.swift */; };
 		307F3F6223DAB26F0058FB15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F3F6123DAB26F0058FB15 /* SceneDelegate.swift */; };
 		307F3F6423DAB26F0058FB15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307F3F6323DAB26F0058FB15 /* ViewController.swift */; };
@@ -66,6 +68,8 @@
 		305A870423ED48E8006E5ACF /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		306CE5DA2408C70B001B76D1 /* BaseTodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTodayCell.swift; sourceTree = "<group>"; };
 		306CE5DC2408C760001B76D1 /* TodayMultipleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleCell.swift; sourceTree = "<group>"; };
+		306CE5DE2408D534001B76D1 /* TodayMultipleAppsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppsController.swift; sourceTree = "<group>"; };
+		306CE5E02408D5AE001B76D1 /* MultipleAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAppCell.swift; sourceTree = "<group>"; };
 		307F3F5C23DAB26F0058FB15 /* MIF50AppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIF50AppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		307F3F5F23DAB26F0058FB15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		307F3F6123DAB26F0058FB15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				308369DD24050EED0054C6B1 /* AppFullscreenHeaderCell.swift */,
 				306CE5DA2408C70B001B76D1 /* BaseTodayCell.swift */,
 				306CE5DC2408C760001B76D1 /* TodayMultipleCell.swift */,
+				306CE5E02408D5AE001B76D1 /* MultipleAppCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			children = (
 				30E977FF24016CC000AE9EB9 /* TodayController.swift */,
 				30E978042401B28400AE9EB9 /* AppFullscreenController.swift */,
+				306CE5DE2408D534001B76D1 /* TodayMultipleAppsController.swift */,
 			);
 			name = Today;
 			path = ..;
@@ -488,6 +494,7 @@
 				30F6872E23DC74F000A257F4 /* SearchResultCell.swift in Sources */,
 				30DDD43123DF67A800B43B0B /* VerticalStackView.swift in Sources */,
 				30954FD6240046B4007EA11A /* PreviewScreenshotController.swift in Sources */,
+				306CE5DF2408D534001B76D1 /* TodayMultipleAppsController.swift in Sources */,
 				30243B8623E3FD5E00C04179 /* Service.swift in Sources */,
 				30954FD824004739007EA11A /* ScreenshotRowCell.swift in Sources */,
 				305A86F623ED1A38006E5ACF /* Extensions.swift in Sources */,
@@ -502,6 +509,7 @@
 				30EED40D23E89C1F00728F98 /* AppsPageController.swift in Sources */,
 				30EED41123E8A40E00728F98 /* AppsHorizontalController.swift in Sources */,
 				305A86FC23ED2C65006E5ACF /* AppsHeaderHorizontalController.swift in Sources */,
+				306CE5E12408D5AE001B76D1 /* MultipleAppCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
