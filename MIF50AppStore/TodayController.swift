@@ -128,6 +128,13 @@ class TodayController: BaseListContoller {
 extension TodayController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if items[indexPath.item].cellType == .muliple {
+            let fullMultipleVC = TodayMultipleAppsController(mode: .fullscreen)
+            fullMultipleVC.modalPresentationStyle = .fullScreen
+            fullMultipleVC.feedResults = self.items[indexPath.item].feedResults
+            present(fullMultipleVC, animated: true)
+            return
+        }
         let appFullscreenVC = AppFullscreenController()
         appFullscreenVC.todayItem = items[indexPath.item]
         appFullscreenVC.dismissHandler = {
@@ -224,7 +231,6 @@ extension TodayController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return CGSize(width: view.frame.width - 48 , height: TodayController.CELL_SIZE)
     }
     
