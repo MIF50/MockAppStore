@@ -16,10 +16,10 @@ struct TodayItem {
     let description: String
     let backgroundColor: UIColor
     let cellType: CellType
+    let feedResults: [FeedResult]
     
     
     public enum CellType: String {
-       case single
-       case muliple
+       case single, muliple
     }
 }

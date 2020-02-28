@@ -21,23 +21,23 @@ class TodayMultipleAppsController: BaseListContoller {
         
         collectionView.register(MultipleAppCell.self, forCellWithReuseIdentifier: multipleAppCellId)
         
-        fetchData()
+//        fetchData()
         
     }
     
-    private func fetchData() {
-        Service.share.fetchGames { (res) in
-            switch res {
-            case .success(let appGroup):
-                self.feedResults = appGroup.feed.results
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            case .failure(let error):
-                print("TodayMultipleAppsController error \(error)")
-            }
-        }
-    }
+//    private func fetchData() {
+//        Service.share.fetchGames { (res) in
+//            switch res {
+//            case .success(let appGroup):
+//                self.feedResults = appGroup.feed.results
+//                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+//                }
+//            case .failure(let error):
+//                print("TodayMultipleAppsController error \(error)")
+//            }
+//        }
+//    }
 }
 
 // MARK: - UICollectionViewDataSource
