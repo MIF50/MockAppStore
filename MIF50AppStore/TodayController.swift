@@ -10,11 +10,16 @@ import UIKit
 
 class TodayController: BaseListContoller {
     
-    fileprivate let todayCellId = "todayCellId"
+    static let CELL_SIZE: CGFloat = 500
+    
+//    fileprivate let todayCellId = "todayCellId"
     
     let items = [
-          TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white),
-          TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1))
+        TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white,
+                       cellType: .single),
+        TodayItem.init(category: "THE DAILY LIST", title: "Test -Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white,
+        cellType: .muliple),
+        TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1), cellType: .single)
       ]
     
     var startingFrame: CGRect?
@@ -35,7 +40,8 @@ class TodayController: BaseListContoller {
         super.viewDidLoad()
     
         collectionView.backgroundColor = #colorLiteral(red: 0.9410567326, green: 0.9410567326, blue: 0.9410567326, alpha: 1)
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: todayCellId)
+        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+        collectionView.register(TodayMultipleCell.self, forCellWithReuseIdentifier: TodayItem.CellType.muliple.rawValue)
     }
 }
 
@@ -128,7 +134,7 @@ extension TodayController {
     
     
     override func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: todayCellId, for: indexPath) as! TodayCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: items[indexPath.item].cellType.rawValue, for: indexPath) as! BaseTodayCell
         cell.todayItem = items[indexPath.item]
         return cell
     }
@@ -141,7 +147,7 @@ extension TodayController : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: view.frame.width - 48 , height: 450)
+        return CGSize(width: view.frame.width - 48 , height: TodayController.CELL_SIZE)
     }
     
     
