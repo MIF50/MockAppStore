@@ -132,7 +132,7 @@ extension TodayController {
             let fullMultipleVC = TodayMultipleAppsController(mode: .fullscreen)
             fullMultipleVC.modalPresentationStyle = .fullScreen
             fullMultipleVC.feedResults = self.items[indexPath.item].feedResults
-            present(fullMultipleVC, animated: true)
+            present(BackEnabledNavigationController(rootViewController: fullMultipleVC), animated: true)
             return
         }
         let appFullscreenVC = AppFullscreenController()
@@ -141,7 +141,6 @@ extension TodayController {
             self.handleRemoveRedView()
         }
         let appFullscreenView = appFullscreenVC.view!
-//        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
         view.addSubview(appFullscreenView)
         addChild(appFullscreenVC)
         self.appFullscreenVC = appFullscreenVC
@@ -221,8 +220,31 @@ extension TodayController {
     override func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: items[indexPath.item].cellType.rawValue, for: indexPath) as! BaseTodayCell
         cell.todayItem = items[indexPath.item]
+        
+        (cell as? TodayMultipleCell)?.multipleAppVC.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppsTap)))
+        
         return cell
     }
+    
+    @objc fileprivate func handleMultipleAppsTap(gesture: UIGestureRecognizer) {
+        let collectionView = gesture.view
+        // figure out which cell were clicking into
+        var superview = collectionView?.superview
+        while superview != nil {
+            if let cell = superview as? TodayMultipleCell {
+                guard let indexPath = self.collectionView.indexPath(for: cell) else { return }
+                let feedResults = self.items[indexPath.item].feedResults
+                
+                let fullController = TodayMultipleAppsController(mode: .fullscreen)
+                fullController.modalPresentationStyle = .fullScreen
+                fullController.feedResults = feedResults
+                present(BackEnabledNavigationController(rootViewController: fullController), animated: true)
+                return
+            }
+            superview = superview?.superview
+        }
+    }
+
 }
 
 // MARK: - Collection View Flow Layout Delegate

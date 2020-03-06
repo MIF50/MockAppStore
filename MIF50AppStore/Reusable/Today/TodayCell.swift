@@ -17,6 +17,7 @@ class TodayCell: BaseTodayCell {
             imageView.image = todayItem.image
             descriptionLabel.text = todayItem.description
             backgroundColor = todayItem.backgroundColor
+            backgroundView?.backgroundColor = todayItem.backgroundColor
         }
     }
     
@@ -29,28 +30,37 @@ class TodayCell: BaseTodayCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        initView()
+        arrangeLayout()
+        
+    }
+    
+    private func initView(){
         backgroundColor = .white
-        clipsToBounds = true
         layer.cornerRadius = 16
         
         imageView.contentMode = .scaleAspectFill
-        
+        imageView.clipsToBounds = true
+    }
+    
+    private func arrangeLayout(){
         let containerImage = UIView()
-        contentView.addSubview(imageView)
-        imageView.centerInSuperview(size: .init(width: 240, height: 240))
-        let stackView = VerticalStackView(arrangedSubViews: [
-        categoryLabel,
-        titleLabel,
-        containerImage,
-        descriptionLabel
-        ], spacing: 8)
+                containerImage.addSubview(imageView)
+                imageView.centerInSuperview(size: .init(width: 240, height: 240))
         
-        addSubview(stackView)
-//        stackView.fillSuperview(padding: .init(top: 24, left: 24, bottom: 24, right: 24))
-        stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,
-                         padding: .init(top: 0, left: 24, bottom: 24, right: 24))
-        topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
-        topConstraint.isActive = true
+                let stackView = VerticalStackView(arrangedSubViews: [
+                categoryLabel,
+                titleLabel,
+                containerImage,
+                descriptionLabel
+                ], spacing: 8)
+                
+        stackView.backgroundColor = .red
+                addSubview(stackView)
+                stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,
+                                 padding: .init(top: 0, left: 24, bottom: 24, right: 24))
+                topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
+                topConstraint.isActive = true
     }
     
     required init?(coder: NSCoder) {

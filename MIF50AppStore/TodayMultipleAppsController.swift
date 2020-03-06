@@ -76,6 +76,17 @@ class TodayMultipleAppsController: BaseListContoller {
 // MARK: - UICollectionViewDataSource
 extension TodayMultipleAppsController {
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let appId = self.feedResults[indexPath.item].id
+        print("TodayMultipleAppsController  cell Tapped  appId = \(appId)")
+
+        let appDetailController = AppDetailsController(appId: appId)
+        appDetailController.modalPresentationStyle = .fullScreen
+//        present( appDetailController, animated: true)
+        navigationController?.pushViewController(appDetailController, animated: true)
+    
+    }
+    
     override func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int {
         if mode == .fullscreen {
             return feedResults.count
