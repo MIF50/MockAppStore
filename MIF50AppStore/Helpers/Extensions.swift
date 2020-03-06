@@ -43,3 +43,13 @@ extension UIStackView {
         self.spacing = customSpacing
     }
 }
+
+// exts to open view controller in full screen 
+extension UIViewController {
+  func presentInFullScreen(_ viewController: UIViewController,
+                           animated: Bool,
+                           completion: (() -> Void)? = nil) {
+    viewController.modalPresentationStyle = .fullScreen
+    present(viewController, animated: animated, completion: completion)
+  }
+}
