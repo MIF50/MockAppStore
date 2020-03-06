@@ -26,6 +26,8 @@ class TodayController: BaseListContoller {
           return avi
       }()
     
+    let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+    
     
     var items = [TodayItem]()
     
@@ -43,6 +45,11 @@ class TodayController: BaseListContoller {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //
+        view.addSubview(blurVisualEffectView)
+        blurVisualEffectView.fillSuperview()
+        blurVisualEffectView.alpha = 0
         
         //
         view.addSubview(activityIndicatorView)
@@ -149,10 +156,35 @@ extension TodayController {
         let appFullscreenVC = AppFullscreenController()
         appFullscreenVC.todayItem = items[indexPath.item]
         appFullscreenVC.dismissHandler = {
-            self.handleRemoveRedView()
+            self.handleAppFullScreenDismissall()
         }
         appFullscreenVC.view.layer.cornerRadius = 16
         self.appFullscreenVC = appFullscreenVC
+        
+        //#1 setup our pan gesture
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(handleDrag))
+        gesture.delegate = self /// used to handle gesture to scroll in table view
+        appFullscreenVC.view.addGestureRecognizer(gesture)
+        
+        //#2 add blure affect view
+        
+        //#3 not to interface with our UITabelView Scrolling
+    }
+    
+    @objc fileprivate func handleDrag(gesture: UIPanGestureRecognizer) {
+        let transilationY = gesture.translation(in: appFullscreenVC.view).y
+        
+        if gesture.state == .changed {
+            print("gesture state changed")
+            let scale = 1 - transilationY / 1000
+            print("transilationY = \(transilationY) , scale = \(scale)")
+            let tranform: CGAffineTransform = .init(scaleX: scale, y: scale)
+            appFullscreenVC.view.transform = tranform
+        } else if gesture.state == .ended {
+            print("gesture state ended")
+            handleAppFullscreenDismissal()
+        }
+        
     }
     
     fileprivate func setupStartingCellFrame(_ indexPath: IndexPath) {
@@ -188,13 +220,16 @@ extension TodayController {
     fileprivate func beginAnimationAppFullScreen(){
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             
-            self.anchoredConstaints?.top?.constant = 0
-            self.anchoredConstaints?.leading?.constant = 0
-            self.anchoredConstaints?.width?.constant = self.view.frame.width
-            self.anchoredConstaints?.height?.constant = self.view.frame.height
-
-
+            self.blurVisualEffectView.alpha = 1
             
+            if let anchoredConstaints = self.anchoredConstaints {
+                anchoredConstaints.top?.constant = 0
+                anchoredConstaints.leading?.constant = 0
+                anchoredConstaints.width?.constant = self.view.frame.width
+                anchoredConstaints.height?.constant = self.view.frame.height
+            }
+            
+
             self.view.layoutIfNeeded() // starts animation
             self.beginAnimationAppFullscreen()
             
@@ -205,14 +240,20 @@ extension TodayController {
     }
     
     fileprivate func showSingleAppFullScreen(_ indexPath: IndexPath) {
+        //#1
         setupSingleAppFullScreenController(indexPath)
+        //#2 setup full screen in it starting position
         setupSingleAppFullScreenStartingPosition(indexPath)
+        //#3 begin the full screen animation
         beginAnimationAppFullScreen()
     }
 
-    @objc func handleRemoveRedView() {
+    @objc func handleAppFullScreenDismissall() {
         // access startingFrame
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            
+            self.blurVisualEffectView.alpha = 0
+            self.appFullscreenVC.view.transform = .identity
 
             guard let startFrame = self.startingFrame else { return }
             self.anchoredConstaints?.top?.constant = startFrame.origin.y
@@ -302,5 +343,13 @@ extension TodayController : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 32
+    }
+}
+
+// MARK: - Handle Gesture Recongnizer
+extension TodayController : UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
