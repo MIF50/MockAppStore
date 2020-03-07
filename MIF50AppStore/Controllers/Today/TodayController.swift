@@ -36,6 +36,7 @@ class TodayController: BaseListContoller {
     
     // auto layout constraint animations
     var anchoredConstaints: AnchoredConstraints?
+    var appFullscreenBeginOffset: CGFloat = 0
 
     
     override func viewDidLayoutSubviews() {
@@ -172,17 +173,28 @@ extension TodayController {
     }
     
     @objc fileprivate func handleDrag(gesture: UIPanGestureRecognizer) {
+        if appFullscreenVC.tableView.contentOffset.y > 0 {
+            return
+        }
+        if gesture.state == .began {
+            appFullscreenBeginOffset = appFullscreenVC.tableView.contentOffset.y
+        }
         let transilationY = gesture.translation(in: appFullscreenVC.view).y
         
         if gesture.state == .changed {
-            print("gesture state changed")
-            let scale = 1 - transilationY / 1000
-            print("transilationY = \(transilationY) , scale = \(scale)")
-            let tranform: CGAffineTransform = .init(scaleX: scale, y: scale)
-            appFullscreenVC.view.transform = tranform
+            if transilationY > 0 {
+                let trueOffset = transilationY - appFullscreenBeginOffset
+                var scale = 1 - trueOffset / 1000
+                scale = min(1, scale)
+                scale = max(0.5, scale)
+                print("transilationY = \(transilationY) , scale = \(scale)")
+                let tranform: CGAffineTransform = .init(scaleX: scale, y: scale)
+                appFullscreenVC.view.transform = tranform
+            }
         } else if gesture.state == .ended {
-            print("gesture state ended")
-            handleAppFullscreenDismissal()
+            if transilationY > 0 {
+                self.handleAppFullScreenDismissall()
+            }
         }
         
     }
@@ -231,7 +243,7 @@ extension TodayController {
             
 
             self.view.layoutIfNeeded() // starts animation
-            self.beginAnimationAppFullscreen()
+            self.beginAnimationTabBar()
             
              guard let headerCell = self.appFullscreenVC.tableView.cellForRow(at: [0,0]) as? AppFullscreenHeaderCell else { return }
             headerCell.todayCell.topConstraint.constant = 48
@@ -240,17 +252,23 @@ extension TodayController {
     }
     
     fileprivate func showSingleAppFullScreen(_ indexPath: IndexPath) {
-        //#1
+        /// #1
         setupSingleAppFullScreenController(indexPath)
-        //#2 setup full screen in it starting position
+        /// #2 setup full screen in it starting position
         setupSingleAppFullScreenStartingPosition(indexPath)
-        //#3 begin the full screen animation
+        /// #3 begin the full screen animation
         beginAnimationAppFullScreen()
     }
 
     @objc func handleAppFullScreenDismissall() {
         // access startingFrame
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.7,
+            options: .curveEaseOut,
+            animations: {
             
             self.blurVisualEffectView.alpha = 0
             self.appFullscreenVC.view.transform = .identity
@@ -263,10 +281,11 @@ extension TodayController {
             self.view.layoutIfNeeded() // starts animation
             self.appFullscreenVC.tableView.contentOffset = .zero
 
-            self.handleAppFullscreenDismissal()
+            self.backAnimationTabBarToIdentity()
             
             guard let headerCell = self.appFullscreenVC.tableView.cellForRow(at: [0,0]) as? AppFullscreenHeaderCell else { return }
                       headerCell.todayCell.topConstraint.constant = 24
+                      headerCell.closeBtn.alpha = 0
                       headerCell.layoutIfNeeded()
         }, completion: { _ in
             self.appFullscreenVC.view?.removeFromSuperview()
@@ -275,12 +294,12 @@ extension TodayController {
         })
     }
     
-    fileprivate func beginAnimationAppFullscreen() {
+    fileprivate func beginAnimationTabBar() {
         // self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
         self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height
     }
     
-    @objc func handleAppFullscreenDismissal() {
+    @objc func backAnimationTabBarToIdentity() {
         // self.tabBarController?.tabBar.transform = .identity
         if let tabBarFrame = self.tabBarController?.tabBar.frame {
             self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height - tabBarFrame.height

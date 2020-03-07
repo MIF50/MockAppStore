@@ -122,6 +122,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		306F73D6241358C70034ED8C /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				30E977FF24016CC000AE9EB9 /* TodayController.swift */,
+				30E978042401B28400AE9EB9 /* AppFullscreenController.swift */,
+				306CE5DE2408D534001B76D1 /* TodayMultipleAppsController.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
 		307F3F5323DAB26F0058FB15 = {
 			isa = PBXGroup;
 			children = (
@@ -254,17 +264,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		30F0A8BF23FE40CA0061A5A0 /* Today */ = {
-			isa = PBXGroup;
-			children = (
-				30E977FF24016CC000AE9EB9 /* TodayController.swift */,
-				30E978042401B28400AE9EB9 /* AppFullscreenController.swift */,
-				306CE5DE2408D534001B76D1 /* TodayMultipleAppsController.swift */,
-			);
-			name = Today;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		30F0A8C023FE40D20061A5A0 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,9 +297,9 @@
 		30F0A8C623FE44770061A5A0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				306F73D6241358C70034ED8C /* Today */,
 				30F0A8C723FE44B30061A5A0 /* App */,
 				30F0A8C023FE40D20061A5A0 /* Base */,
-				30F0A8BF23FE40CA0061A5A0 /* Today */,
 				30F0A8BD23FE40B70061A5A0 /* Search */,
 			);
 			path = Controllers;
