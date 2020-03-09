@@ -11,6 +11,7 @@ import UIKit
 class TodayMultipleAppsController: BaseListContoller {
     fileprivate let spacing: CGFloat = 16
     fileprivate let multipleAppCellId = "MultipleAppCellId"
+    
     let closeBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(#imageLiteral(resourceName: "close_button"), for: .normal)
@@ -29,9 +30,7 @@ class TodayMultipleAppsController: BaseListContoller {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        collectionView.register(MultipleAppCell.self, forCellWithReuseIdentifier: multipleAppCellId)
-        
-        
+        initCollectionView()
     }
     
     private func initView(){
@@ -40,7 +39,11 @@ class TodayMultipleAppsController: BaseListContoller {
         } else {
             collectionView.isScrollEnabled = false
         }
+    }
+    
+    fileprivate func initCollectionView(){
         collectionView.backgroundColor = .white
+        collectionView.register(MultipleAppCell.self, forCellWithReuseIdentifier: multipleAppCellId)
     }
     
     private func setupCloseBtn() {
@@ -78,11 +81,9 @@ extension TodayMultipleAppsController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let appId = self.feedResults[indexPath.item].id
-        print("TodayMultipleAppsController  cell Tapped  appId = \(appId)")
-
         let appDetailController = AppDetailsController(appId: appId)
         appDetailController.modalPresentationStyle = .fullScreen
-//        present( appDetailController, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.pushViewController(appDetailController, animated: true)
     
     }
@@ -109,9 +110,11 @@ extension TodayMultipleAppsController : UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         if mode == .fullscreen {
             return CGSize(width: view.frame.width - 48 , height: 67)
+        } else {
+            let height: CGFloat = (view.frame.height - 3 * spacing) / 4
+            return CGSize(width: view.frame.width , height: height)
         }
-        let height: CGFloat = (view.frame.height - 3 * spacing) / 4
-        return CGSize(width: view.frame.width , height: height)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,

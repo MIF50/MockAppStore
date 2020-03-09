@@ -47,24 +47,29 @@ class TodayController: BaseListContoller {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //
-        view.addSubview(blurVisualEffectView)
-        blurVisualEffectView.fillSuperview()
-        blurVisualEffectView.alpha = 0
-        
-        //
-        view.addSubview(activityIndicatorView)
-        activityIndicatorView.fillSuperview()
-        
-    
-        collectionView.backgroundColor = #colorLiteral(red: 0.9410567326, green: 0.9410567326, blue: 0.9410567326, alpha: 1)
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
-        collectionView.register(TodayMultipleCell.self, forCellWithReuseIdentifier: TodayItem.CellType.muliple.rawValue)
-        
+        addBlurEffect()
+        addActivityIndicator()
+        initCollectionView()
         fetchData()
     
     }
     
+    fileprivate func addBlurEffect(){
+        view.addSubview(blurVisualEffectView)
+        blurVisualEffectView.fillSuperview()
+        blurVisualEffectView.alpha = 0
+    }
+    
+    fileprivate func addActivityIndicator(){
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.fillSuperview()
+    }
+    
+    fileprivate func initCollectionView(){
+        collectionView.backgroundColor = #colorLiteral(red: 0.9410567326, green: 0.9410567326, blue: 0.9410567326, alpha: 1)
+        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+        collectionView.register(TodayMultipleCell.self, forCellWithReuseIdentifier: TodayItem.CellType.muliple.rawValue)
+    }
     
     private func fetchData(){
         let dispatchGroup = DispatchGroup()
@@ -93,14 +98,15 @@ class TodayController: BaseListContoller {
         dispatchGroup.notify(queue: .main) {
             self.activityIndicatorView.stopAnimating()
             self.items = [
-                TodayItem.init(category: "THE DAILY LIST",
-                                             title: "Test -Drive These CarPlay Apps",
-                                             image: #imageLiteral(resourceName: "garden"),
-                                             description: "",
-                                             backgroundColor: .white,
-                                             cellType: .single,
-                                             feedResults: []
-                              ),
+                TodayItem.init(
+                    category: "THE DAILY LIST",
+                    title: "Test -Drive These CarPlay Apps",
+                    image: #imageLiteral(resourceName: "garden"),
+                    description: "",
+                    backgroundColor: .white,
+                    cellType: .single,
+                    feedResults: []
+                ),
                 TodayItem.init(
                     category: "Daily List",
                     title: self.appGame?.feed.title ?? "",
@@ -114,11 +120,12 @@ class TodayController: BaseListContoller {
                     title: self.topGrossing?.feed.title ?? "",
                     image: #imageLiteral(resourceName: "garden"),
                     description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white,
-                               cellType: .muliple,
-                               feedResults: self.topGrossing?.feed.results ?? []
+                    cellType: .muliple,
+                    feedResults: self.topGrossing?.feed.results ?? []
                 ),
-              
-                TodayItem.init(category: "HOLIDAYS",
+                
+                TodayItem.init(
+                    category: "HOLIDAYS",
                                title: "Travel on a Budget",
                                image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!",
                                backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1),
@@ -140,7 +147,11 @@ extension TodayController {
         let fullMultipleVC = TodayMultipleAppsController(mode: .fullscreen)
         fullMultipleVC.modalPresentationStyle = .fullScreen
         fullMultipleVC.feedResults = self.items[indexPath.item].feedResults
-        present(BackEnabledNavigationController(rootViewController: fullMultipleVC), animated: true)
+        let navC = BackEnabledNavigationController(rootViewController: fullMultipleVC)
+//        let navC = UINavigationController.init(rootViewController: fullMultipleVC)
+        navC.modalPresentationStyle = .fullScreen
+        navC.setNavigationBarHidden(true, animated: false)
+        present(navC, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -330,9 +341,11 @@ extension TodayController {
                 let feedResults = self.items[indexPath.item].feedResults
                 
                 let fullController = TodayMultipleAppsController(mode: .fullscreen)
-                fullController.modalPresentationStyle = .fullScreen
                 fullController.feedResults = feedResults
-                present(BackEnabledNavigationController(rootViewController: fullController), animated: true)
+                let navC = BackEnabledNavigationController(rootViewController: fullController)
+                navC.setNavigationBarHidden(true, animated: false)
+                navC.modalPresentationStyle = .fullScreen
+                present(navC, animated: true)
                 return
             }
             superview = superview?.superview
