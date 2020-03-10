@@ -296,7 +296,8 @@ extension TodayController {
             
             guard let headerCell = self.appFullscreenVC.tableView.cellForRow(at: [0,0]) as? AppFullscreenHeaderCell else { return }
                       headerCell.todayCell.topConstraint.constant = 24
-                      headerCell.closeBtn.alpha = 0
+                      self.appFullscreenVC.closeBtn.alpha = 0
+//                      headerCell.closeBtn.alpha = 0
                       headerCell.layoutIfNeeded()
         }, completion: { _ in
             self.appFullscreenVC.view?.removeFromSuperview()
