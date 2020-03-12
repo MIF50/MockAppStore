@@ -33,6 +33,7 @@ class AppFullscreenController: UIViewController {
         super.viewDidLoad()
         initTableView()
         setupCloseButton()
+        setupFloatingControls()
     }
     
     fileprivate func initTableView(){
@@ -58,6 +59,48 @@ class AppFullscreenController: UIViewController {
         closeBtn.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor,
                         padding: .init(top: 12, left: 0, bottom: 0, right: 0),
                         size: .init(width: 80, height: 40))
+    }
+    
+    fileprivate func setupFloatingControls(){
+        let floatingContainerView = UIView()
+        floatingContainerView.clipsToBounds = true
+        floatingContainerView.layer.cornerRadius = 12
+        view.addSubview(floatingContainerView)
+        let paddingBottom = UIApplication.shared.statusBarFrame.height
+        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding:  .init(top: 0, left: 16, bottom: paddingBottom, right: 16),
+                                     size: .init(width: 0, height: 90))
+        let blurVisualEffect = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        floatingContainerView.addSubview(blurVisualEffect)
+        blurVisualEffect.fillSuperview()
+        
+        // add our subviews
+        let imageView = UIImageView(cornerRadius: 16)
+        imageView.image = todayItem?.image
+        imageView.size(width: 67, height: 67)
+        
+        let verticalStactView = VerticalStackView(arrangedSubViews: [
+            UILabel(text: "Life Style", font: .boldSystemFont(ofSize: 16)),
+            UILabel(text: "The Dialy List of Life ", font: .systemFont(ofSize: 16))
+        ], spacing: 4)
+        
+        let btnGet = UIButton(title: "GET")
+        btnGet.setTitleColor(.white, for: .normal)
+        btnGet.size(width: 80, height: 32)
+        btnGet.layer.cornerRadius = 16
+        btnGet.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        btnGet.backgroundColor = .darkGray
+        
+        let stackView = UIStackView(arrangeViews: [
+            imageView,
+            verticalStactView,
+            btnGet
+        ], customSpacing: 16)
+        floatingContainerView.addSubview(stackView)
+        stackView.fillSuperview(padding: .init(top: 0, left: 16, bottom: 0, right: 16))
+        stackView.alignment = .center
+        
+        
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
