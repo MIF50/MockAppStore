@@ -22,8 +22,11 @@ class AppFullscreenController: UIViewController {
            return btn
        }()
     
+    let floatingContainerView = UIView()
+    
     @objc func handleDismiss(button : UIButton){
         button.isHidden = true
+        floatingContainerView.isHidden = true
         dismissHandler?()
     }
     
@@ -62,7 +65,6 @@ class AppFullscreenController: UIViewController {
     }
     
     fileprivate func setupFloatingControls(){
-        let floatingContainerView = UIView()
         floatingContainerView.clipsToBounds = true
         floatingContainerView.layer.cornerRadius = 12
         view.addSubview(floatingContainerView)
@@ -98,16 +100,31 @@ class AppFullscreenController: UIViewController {
         floatingContainerView.addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 0, left: 16, bottom: 0, right: 16))
         stackView.alignment = .center
+//        view.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(handleTap)))
         
         
         
     }
+    
+//    @objc func handleTap() {
+//        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+//            self.floatingContainerView.transform = .init(translationX: 0, y: 500)
+//        })
+//
+//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y < 0 {
             scrollView.isScrollEnabled = false
             scrollView.isScrollEnabled = true
         }
+        let translateionY = scrollView.contentOffset.y
+        let m = translateionY - UIApplication.shared.statusBarFrame.height
+        let transform: CGAffineTransform =  translateionY > 100 ? CGAffineTransform.init(translationX: 0, y: m) : .identity
+        
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            self.floatingContainerView.transform = transform
+        })
     }
     
 
