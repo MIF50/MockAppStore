@@ -9,15 +9,23 @@
 import UIKit
 
 class MusicController: BaseListContoller {
-    
+    // cells Ids
     fileprivate let tractorCellId = "tractorCellId"
     fileprivate let musicLoadingFooterId = "musicLoadingFooterId"
+    
+    fileprivate var resultsApp = [ResultApp]()
+    
+    // pagination
+    fileprivate var offsetPage = 0
+    fileprivate var isPagination = false
+    fileprivate var isDonePagination = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initCollectionView()
+        fetchData()
     }
     
     fileprivate func initCollectionView(){
@@ -25,31 +33,72 @@ class MusicController: BaseListContoller {
         collectionView.register(TractorCell.self, forCellWithReuseIdentifier: tractorCellId)
         collectionView.register(MusicLoadingFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: musicLoadingFooterId)
     }
+    
+    fileprivate func fetchData(){
+        Service.share.fetchMusicData(offset: offsetPage) { (res) in
+            switch res {
+            case .success(let appSearch):
+                self.resultsApp += appSearch.results
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            case.failure(let error):
+                print("MusicController error =  \(error)")
+            }
+        }
+    }
+    
+    fileprivate func fetchDataPagniation(){
+        offsetPage += 1
+        isPagination = true
+        Service.share.fetchMusicData(offset: offsetPage) { (res) in
+            switch res {
+            case .success(let appSearch):
+                if appSearch.results.count == 0 {
+                    self.isDonePagination = true
+                }
+                sleep(2)
+                self.resultsApp += appSearch.results
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            case.failure(let error):
+                print("MusicController error =  \(error)")
+            }
+        }
+        isPagination = false
+        
+    }
 }
-
+// MARK:- UICollectionViewDataSource
 extension MusicController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
+        return resultsApp.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tractorCellId, for: indexPath) as! TractorCell
-        
+        cell.resultApp = resultsApp[indexPath.item]
+        // init pagination
+        if indexPath.item == resultsApp.count - 1 && !isPagination {
+            fetchDataPagniation()
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: musicLoadingFooterId, for: indexPath) as! MusicLoadingFooter
-            return footer
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: musicLoadingFooterId, for: indexPath) as! MusicLoadingFooter
+        return footer
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 120)
+        let height: CGFloat = isDonePagination ? 0: 100
+        return .init(width: view.frame.width, height: height)
     }
     
 }
-
+// MARK:- Collection View Flow Layout Delegate
 extension MusicController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

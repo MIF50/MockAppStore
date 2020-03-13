@@ -36,12 +36,12 @@ class previewScreenshotController: HorizontalSnappingController {
 extension previewScreenshotController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return app?.screenshotUrls.count ?? 1
+        return app?.screenshotUrls!.count ?? 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: screenshotId, for: indexPath) as! ScreenshotCell
-        if let screenshot = app?.screenshotUrls[indexPath.item] {
+        if let screenshot = app?.screenshotUrls![indexPath.item] {
             cell.screenshotUrl = screenshot
         }
         return cell

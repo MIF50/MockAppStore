@@ -74,5 +74,11 @@ class Service {
         fetchGenericJSONData(stringUrl: URL_STRING, complition: complition)
     }
     
+    // https://itunes.apple.com/search?term=tralor&offset=25&limit=25
     
+    func fetchMusicData(offset: Int = 0, complition: @escaping (Result<SearchResult,Error>) -> ()) {
+        let URL_STRING = "https://itunes.apple.com/search?term=taylor&offset=\(offset)&limit=20"
+        fetchGenericJSONData(stringUrl: URL_STRING, complition: complition)
+        
+    }
 }

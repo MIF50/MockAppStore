@@ -10,9 +10,17 @@ import UIKit
 
 class TractorCell: UICollectionViewCell {
     
+    var resultApp: ResultApp! {
+        didSet {
+            imageView.sd_setImage(with: URL(string: resultApp.artworkUrl100))
+            nameLabel.text = resultApp.trackName
+            descriptionLabel.text = "\(resultApp.artistName ?? "") • \(resultApp.collectionName ?? "")"
+        }
+    }
+    
     let imageView = UIImageView(cornerRadius: 16)
     let nameLabel = UILabel(text: "Name Label", font: .boldSystemFont(ofSize: 18))
-    let descriptionLabel = UILabel(text: "this is description", font: .systemFont(ofSize: 16))
+    let descriptionLabel = UILabel(text: "this is description", font: .systemFont(ofSize: 16),numberOfLine: 2)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
