@@ -9,5 +9,5 @@
 import Foundation
 
 struct SocialApp: Decodable {
-    let name , imageUrl, tagline : String
+    let id, name , imageUrl, tagline : String
 }

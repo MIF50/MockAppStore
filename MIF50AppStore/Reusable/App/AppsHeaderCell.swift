@@ -26,19 +26,25 @@ class AppsHeaderCell: UICollectionViewCell {
         super.init(frame: frame)
         
         initView()
-        let stackview = VerticalStackView(arrangedSubViews: [companyLabel, titleLabel, imageview], spacing: 10)
+        arrangeLayout()
         
-        addSubview(stackview)
-        stackview.fillSuperview(padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         
     }
     
     private func initView() {
+        imageview.image = #imageLiteral(resourceName: "holiday")
         // company label
         companyLabel.textColor = .blue
         // title label
         titleLabel.numberOfLines = 2
                 
+    }
+    
+    private func arrangeLayout(){
+        let stackview = VerticalStackView(arrangedSubViews: [companyLabel, titleLabel, imageview], spacing: 10)
+        
+        addSubview(stackview)
+        stackview.fillSuperview(padding: .init(top: 16, left: 0, bottom: 0, right: 0))
     }
     
     required init?(coder: NSCoder) {

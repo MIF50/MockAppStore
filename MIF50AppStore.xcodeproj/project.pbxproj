@@ -12,6 +12,7 @@
 		30243B8623E3FD5E00C04179 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30243B8523E3FD5E00C04179 /* Service.swift */; };
 		3038C8DE2410335F00B12E80 /* BackEnabledNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038C8DD2410335F00B12E80 /* BackEnabledNavigationController.swift */; };
 		303D47F223DF59910013ED7E /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303D47F123DF59910013ED7E /* UIView+Layout.swift */; };
+		305911BC241C0A47006A88FE /* AppsCompositionalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305911BB241C0A47006A88FE /* AppsCompositionalView.swift */; };
 		305A86F623ED1A38006E5ACF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305A86F523ED1A38006E5ACF /* Extensions.swift */; };
 		305A86F823ED1C02006E5ACF /* AppRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305A86F723ED1C02006E5ACF /* AppRowCell.swift */; };
 		305A86FC23ED2C65006E5ACF /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305A86FB23ED2C65006E5ACF /* AppsHeaderHorizontalController.swift */; };
@@ -65,6 +66,7 @@
 		30243B8523E3FD5E00C04179 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3038C8DD2410335F00B12E80 /* BackEnabledNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackEnabledNavigationController.swift; sourceTree = "<group>"; };
 		303D47F123DF59910013ED7E /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		305911BB241C0A47006A88FE /* AppsCompositionalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsCompositionalView.swift; sourceTree = "<group>"; };
 		305A86F523ED1A38006E5ACF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		305A86F723ED1C02006E5ACF /* AppRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRowCell.swift; sourceTree = "<group>"; };
 		305A86FB23ED2C65006E5ACF /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		305911BA241C0A1C006A88FE /* Compositional */ = {
+			isa = PBXGroup;
+			children = (
+				305911BB241C0A47006A88FE /* AppsCompositionalView.swift */,
+			);
+			path = Compositional;
+			sourceTree = "<group>";
+		};
 		306F73D6241358C70034ED8C /* Today */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +343,7 @@
 		30F0A8C723FE44B30061A5A0 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				305911BA241C0A1C006A88FE /* Compositional */,
 				30F0A8C123FE410E0061A5A0 /* Details */,
 				30EED40C23E89C1F00728F98 /* AppsPageController.swift */,
 				30EED41023E8A40E00728F98 /* AppsHorizontalController.swift */,
@@ -500,6 +511,7 @@
 				30954FE0240057F6007EA11A /* PreviewCell.swift in Sources */,
 				30954FDC24005718007EA11A /* PeviewsControllers.swift in Sources */,
 				307F3F7523DAB5290058FB15 /* BaseTabBarController.swift in Sources */,
+				305911BC241C0A47006A88FE /* AppsCompositionalView.swift in Sources */,
 				30151BC323F1D618002A7F33 /* SocialApp.swift in Sources */,
 				306CE5DB2408C70B001B76D1 /* BaseTodayCell.swift in Sources */,
 				30E9780024016CC000AE9EB9 /* TodayController.swift in Sources */,
@@ -617,7 +629,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -672,7 +684,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
