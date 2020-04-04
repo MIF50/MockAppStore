@@ -111,3 +111,28 @@ class SearchResultCell: UICollectionViewCell {
     }
     
 }
+
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct SearchResultCell_Preview: PreviewProvider {
+    static var previews: some View {
+        SearchResultCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct SearchResultCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return SearchResultCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+
+    }
+}
+
+#endif

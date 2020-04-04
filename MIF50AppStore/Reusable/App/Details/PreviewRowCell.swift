@@ -32,3 +32,27 @@ class PreviewRowCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct PreviewRowCell_Preview: PreviewProvider {
+    static var previews: some View {
+        PreviewRowCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct PreviewRowCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return PreviewRowCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+
+    }
+}
+
+#endif

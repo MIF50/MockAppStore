@@ -43,3 +43,25 @@ class BaseTodayCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct BaseTodayCell_Preview: PreviewProvider {
+    static var previews: some View {
+        BaseTodayCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct BaseTodayCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return BaseTodayCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {}
+}
+
+#endif

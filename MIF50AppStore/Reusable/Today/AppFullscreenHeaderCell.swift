@@ -29,3 +29,26 @@ class AppFullscreenHeaderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppFullscreenHeaderCell_Preview: PreviewProvider {
+    static var previews: some View {
+        AppFullscreenHeaderCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct AppFullscreenHeaderCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return AppFullscreenHeaderCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {}
+}
+
+#endif

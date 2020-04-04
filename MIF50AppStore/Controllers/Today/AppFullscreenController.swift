@@ -68,6 +68,7 @@ class AppFullscreenController: UIViewController {
         floatingContainerView.clipsToBounds = true
         floatingContainerView.layer.cornerRadius = 12
         view.addSubview(floatingContainerView)
+//        let height = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         let paddingBottom = UIApplication.shared.statusBarFrame.height
         floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding:  .init(top: 0, left: 16, bottom: paddingBottom, right: 16),
                                      size: .init(width: 0, height: 90))

@@ -51,3 +51,28 @@ class AppsHeaderCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppsHeaderCell_Preview: PreviewProvider {
+    static var previews: some View {
+        AppsHeaderCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct AppsHeaderCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return AppsHeaderCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+
+    }
+}
+
+#endif

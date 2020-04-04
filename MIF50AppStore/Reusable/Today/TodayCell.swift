@@ -30,6 +30,7 @@ class TodayCell: BaseTodayCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         initView()
         arrangeLayout()
         
@@ -48,18 +49,18 @@ class TodayCell: BaseTodayCell {
                 containerImage.addSubview(imageView)
                 imageView.centerInSuperview(size: .init(width: 240, height: 240))
         
-                let stackView = VerticalStackView(arrangedSubViews: [
+                let vstack = VerticalStackView(arrangedSubViews: [
                 categoryLabel,
                 titleLabel,
                 containerImage,
                 descriptionLabel
                 ], spacing: 8)
                 
-        stackView.backgroundColor = .red
-                addSubview(stackView)
-                stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,
+        vstack.backgroundColor = .red
+                addSubview(vstack)
+                vstack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,
                                  padding: .init(top: 0, left: 24, bottom: 24, right: 24))
-                topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
+                topConstraint = vstack.topAnchor.constraint(equalTo: topAnchor, constant: 24)
                 topConstraint.isActive = true
     }
     
@@ -67,3 +68,27 @@ class TodayCell: BaseTodayCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct TodayCell_Preview: PreviewProvider {
+    static var previews: some View {
+        TodayCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct TodayCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return TodayCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+
+    }
+}
+
+#endif

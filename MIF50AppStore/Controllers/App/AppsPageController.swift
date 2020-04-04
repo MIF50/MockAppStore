@@ -18,7 +18,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
     
     // create load indicator
     let activityIndicatorView : UIActivityIndicatorView = {
-        let avi = UIActivityIndicatorView(style: .whiteLarge)
+        let avi = UIActivityIndicatorView(style: .large)
         avi.color = .black
         avi.startAnimating()
         avi.hidesWhenStopped = true

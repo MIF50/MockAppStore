@@ -75,3 +75,26 @@ class MultipleAppCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct MultipleAppCell_Preview: PreviewProvider {
+    static var previews: some View {
+        MultipleAppCellRepresentable().previewLayout(.fixed(width: 400, height: 100))
+    }
+}
+
+struct MultipleAppCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return MultipleAppCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {}
+}
+
+#endif

@@ -53,3 +53,11 @@ extension UIViewController {
     present(viewController, animated: animated, completion: completion)
   }
 }
+
+extension UICollectionViewCell {
+    static var TAG: String {
+       return "\(self)"
+    }
+}
+
+

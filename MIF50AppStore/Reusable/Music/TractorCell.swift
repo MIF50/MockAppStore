@@ -37,14 +37,38 @@ class TractorCell: UICollectionViewCell {
     }
     
     fileprivate func arrangeLayout(){
-        let verticalSV = VerticalStackView(arrangedSubViews: [nameLabel,descriptionLabel], spacing: 4)
-        let stackview = UIStackView(arrangeViews: [imageView,verticalSV], customSpacing: 8)
-        stackview.alignment = .center
-        addSubview(stackview)
-        stackview.fillSuperview(padding: .init(top: 0, left: 16, bottom: 0, right: 16))
+        let vstack = VerticalStackView(arrangedSubViews: [nameLabel,descriptionLabel], spacing: 4)
+        let hstack = UIStackView(arrangeViews: [imageView,vstack], customSpacing: 8)
+        hstack.alignment = .center
+        addSubview(hstack)
+        hstack.fillSuperview(padding: .init(top: 0, left: 16, bottom: 0, right: 16))
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct TractorCell_Preview: PreviewProvider {
+    static var previews: some View {
+        TractorCellRepresentable().previewLayout(.fixed(width: 400, height: 100))
+    }
+}
+
+struct TractorCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return TractorCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {}
+}
+
+#endif

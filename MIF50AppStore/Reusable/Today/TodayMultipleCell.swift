@@ -52,3 +52,28 @@ class TodayMultipleCell: BaseTodayCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct TodayMultipleCell_Preview: PreviewProvider {
+    static var previews: some View {
+        TodayMultipleCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct TodayMultipleCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return TodayMultipleCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+
+    }
+}
+
+#endif

@@ -60,3 +60,27 @@ class AppRowCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppRowCell_Preview: PreviewProvider {
+    static var previews: some View {
+        AppRowCellRepresentable().previewLayout(.fixed(width: 400, height: 500))
+    }
+}
+
+struct AppRowCellRepresentable: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> UIView {
+        return AppRowCell()
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+
+    }
+}
+
+#endif
