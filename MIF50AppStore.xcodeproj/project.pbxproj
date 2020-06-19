@@ -45,7 +45,7 @@
 		30BC17EF241B6A2D00E58F92 /* TractorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC17EE241B6A2D00E58F92 /* TractorCell.swift */; };
 		30BC17F1241B6ABC00E58F92 /* MusicLoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC17F0241B6ABC00E58F92 /* MusicLoadingFooter.swift */; };
 		30CF2AF023FF85D0002EE37A /* AppDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CF2AEF23FF85D0002EE37A /* AppDetailCell.swift */; };
-		30DDD43123DF67A800B43B0B /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDD43023DF67A800B43B0B /* VerticalStackView.swift */; };
+		30DDD43123DF67A800B43B0B /* VStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDD43023DF67A800B43B0B /* VStackView.swift */; };
 		30E9780024016CC000AE9EB9 /* TodayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E977FF24016CC000AE9EB9 /* TodayController.swift */; };
 		30E9780324016E3000AE9EB9 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E9780224016E3000AE9EB9 /* TodayCell.swift */; };
 		30E978052401B28400AE9EB9 /* AppFullscreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E978042401B28400AE9EB9 /* AppFullscreenController.swift */; };
@@ -101,7 +101,7 @@
 		30BC17EE241B6A2D00E58F92 /* TractorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorCell.swift; sourceTree = "<group>"; };
 		30BC17F0241B6ABC00E58F92 /* MusicLoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicLoadingFooter.swift; sourceTree = "<group>"; };
 		30CF2AEF23FF85D0002EE37A /* AppDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCell.swift; sourceTree = "<group>"; };
-		30DDD43023DF67A800B43B0B /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
+		30DDD43023DF67A800B43B0B /* VStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackView.swift; sourceTree = "<group>"; };
 		30E977FF24016CC000AE9EB9 /* TodayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayController.swift; sourceTree = "<group>"; };
 		30E9780224016E3000AE9EB9 /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		30E978042401B28400AE9EB9 /* AppFullscreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullscreenController.swift; sourceTree = "<group>"; };
@@ -263,7 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				303D47F123DF59910013ED7E /* UIView+Layout.swift */,
-				30DDD43023DF67A800B43B0B /* VerticalStackView.swift */,
+				30DDD43023DF67A800B43B0B /* VStackView.swift */,
 				305A86F523ED1A38006E5ACF /* Extensions.swift */,
 				30F84EA523F67F7000B35BDF /* BetterSnapingLayout.swift */,
 				3038C8DD2410335F00B12E80 /* BackEnabledNavigationController.swift */,
@@ -533,7 +533,7 @@
 				30BC17F1241B6ABC00E58F92 /* MusicLoadingFooter.swift in Sources */,
 				30EED40F23E89F9400728F98 /* AppsGroupCell.swift in Sources */,
 				30F6872E23DC74F000A257F4 /* SearchResultCell.swift in Sources */,
-				30DDD43123DF67A800B43B0B /* VerticalStackView.swift in Sources */,
+				30DDD43123DF67A800B43B0B /* VStackView.swift in Sources */,
 				30954FD6240046B4007EA11A /* PreviewScreenshotController.swift in Sources */,
 				306CE5DF2408D534001B76D1 /* TodayMultipleAppsController.swift in Sources */,
 				30243B8623E3FD5E00C04179 /* Service.swift in Sources */,

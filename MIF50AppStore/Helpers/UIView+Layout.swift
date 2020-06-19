@@ -1,14 +1,13 @@
 //
 //  UIView+Layout.swift
-//  AppStoreJSONApis
+//  MIF50AppStore
 //
-//  Created by Brian Voong on 2/10/19.
-//  Copyright © 2019 Brian Voong. All rights reserved.
+//  Created by BeInMedia on 1/31/20.
+//  Copyright © 2020 MIF50. All rights reserved.
 //
 
 import UIKit
 
-// Reference Video: https://youtu.be/iqpAP7s3b-8
 extension UIView {
     
     @discardableResult
@@ -41,7 +40,9 @@ extension UIView {
             anchoredConstraints.height = heightAnchor.constraint(equalToConstant: size.height)
         }
         
-        [anchoredConstraints.top, anchoredConstraints.leading, anchoredConstraints.bottom, anchoredConstraints.trailing, anchoredConstraints.width, anchoredConstraints.height].forEach{ $0?.isActive = true }
+        [anchoredConstraints.top, anchoredConstraints.leading, anchoredConstraints.bottom,
+         anchoredConstraints.trailing, anchoredConstraints.width, anchoredConstraints.height]
+            .forEach{ $0?.isActive = true }
         
         return anchoredConstraints
     }

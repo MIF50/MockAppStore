@@ -64,3 +64,33 @@ class AppsHorizontalController: HorizontalSnappingController, UICollectionViewDe
 //        return .init(top: topBottomPadding, left: leftRightPadding, bottom: topBottomPadding, right: leftRightPadding)
 //    }
 }
+
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppsHorizontalController_Preview : PreviewProvider {
+    
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<AppsHorizontalController_Preview.ContainerView>) -> UIViewController {
+            return AppsHorizontalController()
+        }
+        
+        func updateUIViewController(_ uiViewController: AppsHorizontalController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AppsHorizontalController_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif

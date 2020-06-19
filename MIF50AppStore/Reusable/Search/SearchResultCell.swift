@@ -87,7 +87,7 @@ class SearchResultCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        let labelStack = VerticalStackView(arrangedSubViews: [nameLabel,categoryLabel,ratingLabel])
+        let labelStack = VStackView(arrangedSubViews: [nameLabel,categoryLabel,ratingLabel])
         
         let infoTopStackView = UIStackView(arrangedSubviews: [appIconImageView,labelStack,btnGet])
         infoTopStackView.alignment = .center
@@ -98,7 +98,7 @@ class SearchResultCell: UICollectionViewCell {
         screenShotStackView.distribution = .fillEqually
         screenShotStackView.spacing = 16
         
-        let overallStackView = VerticalStackView(arrangedSubViews: [infoTopStackView,screenShotStackView],spacing: 16)
+        let overallStackView = VStackView(arrangedSubViews: [infoTopStackView,screenShotStackView],spacing: 16)
         
         
         addSubview(overallStackView)

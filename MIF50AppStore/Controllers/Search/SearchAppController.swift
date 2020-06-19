@@ -129,3 +129,35 @@ extension SearchAppController : UICollectionViewDelegateFlowLayout {
     
     
 }
+
+
+
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct SearchAppController_Preview : PreviewProvider {
+    
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<SearchAppController_Preview.ContainerView>) -> UIViewController {
+            return SearchAppController()
+        }
+        
+        func updateUIViewController(_ uiViewController: SearchAppController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<SearchAppController_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif

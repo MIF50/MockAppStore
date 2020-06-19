@@ -62,7 +62,7 @@ class PreviewCell: UICollectionViewCell {
     private func arrangeLayout() {
         let topHorizontalStack = UIStackView(arrangeViews: [titleLabel,authorLabel],customSpacing: 8)
      
-        let stackview = VerticalStackView(arrangedSubViews: [
+        let stackview = VStackView(arrangedSubViews: [
             topHorizontalStack,
             starStackView,
             bodyLabel

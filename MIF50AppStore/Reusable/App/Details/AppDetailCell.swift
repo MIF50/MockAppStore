@@ -51,7 +51,7 @@ class AppDetailCell: UICollectionViewCell {
     }
     
     private func arrangeLayout(){
-        let leftTopVerticalStack = VerticalStackView(arrangedSubViews: [
+        let leftTopVerticalStack = VStackView(arrangedSubViews: [
             appName,
             UIStackView(arrangedSubviews: [btnPrice,UIView()]),
             UIView()
@@ -59,7 +59,7 @@ class AppDetailCell: UICollectionViewCell {
         
         let topHorizontalStack = UIStackView(arrangeViews: [appIconImage,leftTopVerticalStack], customSpacing: 12)
         
-        let verticalStack = VerticalStackView(arrangedSubViews: [
+        let verticalStack = VStackView(arrangedSubViews: [
             topHorizontalStack,
             whatNewLabel,
             releaseLabel

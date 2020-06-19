@@ -146,3 +146,36 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
         return .init(top: 16, left: 0, bottom: 0, right: 0)
     }
 }
+
+
+
+
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppsPageController_Preview : PreviewProvider {
+    
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<AppsPageController_Preview.ContainerView>) -> UIViewController {
+            return AppsPageController()
+        }
+        
+        func updateUIViewController(_ uiViewController: AppsPageController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AppsPageController_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif

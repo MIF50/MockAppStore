@@ -106,3 +106,31 @@ extension MusicController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct MusicController_Preview: PreviewProvider {
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable {
+        func makeUIViewController(context: UIViewControllerRepresentableContext<MusicController_Preview.ContainerView>) -> UIViewController {
+            return MusicController()
+        }
+        
+        func updateUIViewController(_ uiViewController: MusicController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<MusicController_Preview.ContainerView>) {
+            
+        }
+        
+        
+    }
+}
+
+#endif

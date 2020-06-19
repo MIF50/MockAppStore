@@ -17,10 +17,10 @@ class BaseTabBarController: UITabBarController {
         super.viewDidLoad()
         
         viewControllers = [
-            createNavigationController(viewController: MusicController(), title: "Music", imageName: "music"),
             createNavigationController(viewController: TodayController(), title: "Today", imageName: "ic_today"),
             createNavigationController(viewController: AppsPageController(), title: "Apps", imageName: "apps"),
-            createNavigationController(viewController: SearchAppController(), title: "Search", imageName: "search")
+            createNavigationController(viewController: SearchAppController(), title: "Search", imageName: "search"),
+            createNavigationController(viewController: MusicController(), title: "Music", imageName: "music")
         ]
     }
     

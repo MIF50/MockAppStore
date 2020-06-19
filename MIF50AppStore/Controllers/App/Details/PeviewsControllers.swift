@@ -74,3 +74,33 @@ extension PreviewsContoller : UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct PreviewsContoller_Preview : PreviewProvider {
+    
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<PreviewsContoller_Preview.ContainerView>) -> UIViewController {
+            return PreviewsContoller()
+        }
+        
+        func updateUIViewController(_ uiViewController: PreviewsContoller_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<PreviewsContoller_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif
+

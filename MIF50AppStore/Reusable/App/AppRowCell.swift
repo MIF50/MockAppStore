@@ -30,7 +30,7 @@ class AppRowCell: UICollectionViewCell {
        
         let stackview = UIStackView(arrangedSubviews: [
             imageView,
-            VerticalStackView(arrangedSubViews: [nameLabel,companyLabel],spacing: 4),
+            VStackView(arrangedSubViews: [nameLabel,companyLabel],spacing: 4),
             btnGet
             ])
         

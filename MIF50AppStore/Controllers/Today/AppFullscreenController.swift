@@ -53,6 +53,7 @@ class AppFullscreenController: UIViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.contentInsetAdjustmentBehavior = .never
+//        let height = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         let height = UIApplication.shared.statusBarFrame.height
         tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
     }
@@ -68,7 +69,7 @@ class AppFullscreenController: UIViewController {
         floatingContainerView.clipsToBounds = true
         floatingContainerView.layer.cornerRadius = 12
         view.addSubview(floatingContainerView)
-//        let height = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+//        let paddingBottom = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         let paddingBottom = UIApplication.shared.statusBarFrame.height
         floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding:  .init(top: 0, left: 16, bottom: paddingBottom, right: 16),
                                      size: .init(width: 0, height: 90))
@@ -81,7 +82,7 @@ class AppFullscreenController: UIViewController {
         imageView.image = todayItem?.image
         imageView.size(width: 67, height: 67)
         
-        let verticalStactView = VerticalStackView(arrangedSubViews: [
+        let verticalStactView = VStackView(arrangedSubViews: [
             UILabel(text: "Life Style", font: .boldSystemFont(ofSize: 16)),
             UILabel(text: "The Dialy List of Life ", font: .systemFont(ofSize: 16))
         ], spacing: 4)
@@ -120,7 +121,10 @@ class AppFullscreenController: UIViewController {
             scrollView.isScrollEnabled = true
         }
         let translateionY = scrollView.contentOffset.y
-        let m = translateionY - UIApplication.shared.statusBarFrame.height
+//        let height = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let height = UIApplication.shared.statusBarFrame.height
+
+        let m = translateionY - height
         let transform: CGAffineTransform =  translateionY > 100 ? CGAffineTransform.init(translationX: 0, y: m) : .identity
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
@@ -164,4 +168,29 @@ extension AppFullscreenController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppFullscreenController_Preview : PreviewProvider {
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<AppFullscreenController_Preview.ContainerView>) -> UIViewController {
+            return AppFullscreenController()
+        }
+        
+        func updateUIViewController(_ uiViewController: AppFullscreenController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AppFullscreenController_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif
 

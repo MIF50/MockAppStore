@@ -37,7 +37,7 @@ class TractorCell: UICollectionViewCell {
     }
     
     fileprivate func arrangeLayout(){
-        let vstack = VerticalStackView(arrangedSubViews: [nameLabel,descriptionLabel], spacing: 4)
+        let vstack = VStackView(arrangedSubViews: [nameLabel,descriptionLabel], spacing: 4)
         let hstack = UIStackView(arrangeViews: [imageView,vstack], customSpacing: 8)
         hstack.alignment = .center
         addSubview(hstack)

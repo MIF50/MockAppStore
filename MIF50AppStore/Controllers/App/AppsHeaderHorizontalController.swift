@@ -42,3 +42,36 @@ class AppsHeaderHorizontalController: HorizontalSnappingController, UICollection
     
     
 }
+
+
+
+
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppsHeaderHorizontalController_Preview : PreviewProvider {
+    
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<AppsHeaderHorizontalController_Preview.ContainerView>) -> UIViewController {
+            return AppsHeaderHorizontalController()
+        }
+        
+        func updateUIViewController(_ uiViewController: AppsHeaderHorizontalController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AppsHeaderHorizontalController_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif

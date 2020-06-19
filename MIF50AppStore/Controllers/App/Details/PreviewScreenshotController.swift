@@ -61,3 +61,34 @@ extension previewScreenshotController : UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct previewScreenshotController_Preview : PreviewProvider {
+    
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<previewScreenshotController_Preview.ContainerView>) -> UIViewController {
+            return previewScreenshotController()
+        }
+        
+        func updateUIViewController(_ uiViewController: previewScreenshotController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<previewScreenshotController_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif

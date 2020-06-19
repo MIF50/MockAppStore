@@ -41,7 +41,7 @@ class AppsHeaderCell: UICollectionViewCell {
     }
     
     private func arrangeLayout(){
-        let stackview = VerticalStackView(arrangedSubViews: [companyLabel, titleLabel, imageview], spacing: 10)
+        let stackview = VStackView(arrangedSubViews: [companyLabel, titleLabel, imageview], spacing: 10)
         
         addSubview(stackview)
         stackview.fillSuperview(padding: .init(top: 16, left: 0, bottom: 0, right: 0))

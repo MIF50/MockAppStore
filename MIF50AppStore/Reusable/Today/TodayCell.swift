@@ -49,7 +49,7 @@ class TodayCell: BaseTodayCell {
                 containerImage.addSubview(imageView)
                 imageView.centerInSuperview(size: .init(width: 240, height: 240))
         
-                let vstack = VerticalStackView(arrangedSubViews: [
+                let vstack = VStackView(arrangedSubViews: [
                 categoryLabel,
                 titleLabel,
                 containerImage,

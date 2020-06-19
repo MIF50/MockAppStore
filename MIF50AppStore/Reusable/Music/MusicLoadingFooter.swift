@@ -29,7 +29,7 @@ class MusicLoadingFooter: UICollectionReusableView {
     }
     
     fileprivate func arrangeLayout(){
-        let verticalSV = VerticalStackView(arrangedSubViews: [aiv,label], spacing: 4)
+        let verticalSV = VStackView(arrangedSubViews: [aiv,label], spacing: 4)
         verticalSV.alignment = .center
         addSubview(verticalSV)
         verticalSV.centerInSuperview()

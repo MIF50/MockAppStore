@@ -153,3 +153,33 @@ extension AppDetailsController : UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct AppDetailsController_Preview : PreviewProvider {
+    
+    static var previews: some View {
+         ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable  {
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<AppDetailsController_Preview.ContainerView>) -> UIViewController {
+            return AppDetailsController(appId: "")
+        }
+        
+        func updateUIViewController(_ uiViewController: AppDetailsController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AppDetailsController_Preview.ContainerView>) {
+            
+        }
+    }
+}
+
+
+#endif

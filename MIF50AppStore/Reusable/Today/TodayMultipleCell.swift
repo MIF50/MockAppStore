@@ -38,7 +38,7 @@ class TodayMultipleCell: BaseTodayCell {
     }
     
     private func arrangeLayout() {
-        let stackView = VerticalStackView(arrangedSubViews: [
+        let stackView = VStackView(arrangedSubViews: [
             categoryLabel,
             titleLabel,
             multipleAppVC.view

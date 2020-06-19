@@ -55,7 +55,7 @@ class MultipleAppCell: UICollectionViewCell {
     fileprivate func arrangeLayout() {
         let stackview = UIStackView(arrangedSubviews: [
             imageView,
-            VerticalStackView(arrangedSubViews: [nameLabel,companyLabel],spacing: 4),
+            VStackView(arrangedSubViews: [nameLabel,companyLabel],spacing: 4),
             btnGet
             ])
         

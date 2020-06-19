@@ -386,3 +386,32 @@ extension TodayController : UIGestureRecognizerDelegate {
         return true
     }
 }
+
+
+
+
+
+///  to preview desing form SwiftUI
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct TodayController_Preview: PreviewProvider {
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable {
+        func makeUIViewController(context:UIViewControllerRepresentableContext<TodayController_Preview.ContainerView>) -> UIViewController {
+            return TodayController()
+        }
+        
+        func updateUIViewController(_ uiViewController: TodayController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<TodayController_Preview.ContainerView>) {
+            
+        }
+        
+        
+    }
+}
+
+#endif
