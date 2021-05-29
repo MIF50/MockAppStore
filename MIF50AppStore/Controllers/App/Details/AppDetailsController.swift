@@ -56,7 +56,7 @@ class AppDetailsController : BaseListContoller {
     private func fetchData(){
         let dispatcherGroup = DispatchGroup()
         dispatcherGroup.enter()
-        Service.share.fetchPageDetails(id: appId) {  res in
+        APIServices.share.fetchPageDetails(id: appId) {  res in
             dispatcherGroup.leave()
             switch res {
             case .success(let searchResult):
@@ -67,7 +67,7 @@ class AppDetailsController : BaseListContoller {
         }
         
         dispatcherGroup.enter()
-        Service.share.fetchPreviewsAndRating(id: appId) { (res) in
+        APIServices.share.fetchPreviewsAndRating(id: appId) { (res) in
             dispatcherGroup.leave()
             switch res {
             case .success(let preview) :

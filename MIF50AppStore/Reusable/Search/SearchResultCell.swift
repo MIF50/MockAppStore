@@ -131,7 +131,7 @@ struct SearchResultCellRepresentable: UIViewRepresentable {
     }
 
     func updateUIView(_ view: UIView, context: Context) {
-
+        
     }
 }
 

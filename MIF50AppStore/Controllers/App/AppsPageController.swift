@@ -46,7 +46,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
-        Service.share.fetchGames { response in
+        APIServices.share.fetchGames { response in
             dispatchGroup.leave()
             switch response {
             case .success(let appGoup):
@@ -57,7 +57,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
         }
         
         dispatchGroup.enter()
-        Service.share.fetchTopGrossing { response in
+        APIServices.share.fetchTopGrossing { response in
             dispatchGroup.leave()
             switch response {
             case .success(let appGroup):
@@ -68,7 +68,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
         }
         
         dispatchGroup.enter()
-        Service.share.fetchTopFree { response in
+        APIServices.share.fetchTopFree { response in
             dispatchGroup.leave()
             switch response {
             case .success(let appGroup):
@@ -79,7 +79,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
         }
         
         dispatchGroup.enter()
-        Service.share.fetchSocialApp { response in
+        APIServices.share.fetchSocialApp { response in
             dispatchGroup.leave()
             switch response {
             case .success(let socialApps):

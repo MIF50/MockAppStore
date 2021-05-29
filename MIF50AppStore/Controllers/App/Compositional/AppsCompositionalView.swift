@@ -125,7 +125,7 @@ extension CompositionalController {
     
     func fetchAppDispatchGroup(){
         dispatchGroup.enter()
-        Service.share.fetchSocialApp { (res) in
+        APIServices.share.fetchSocialApp { (res) in
             self.dispatchGroup.leave()
             switch res {
             case .success(let socialApps):
@@ -136,7 +136,7 @@ extension CompositionalController {
         }
         
         dispatchGroup.enter()
-        Service.share.fetchGames { (res) in
+        APIServices.share.fetchGames { (res) in
             self.dispatchGroup.leave()
             switch res {
             case .success(let appGroup):
@@ -147,7 +147,7 @@ extension CompositionalController {
         }
         
         dispatchGroup.enter()
-        Service.share.fetchTopGrossing { (res) in
+        APIServices.share.fetchTopGrossing { (res) in
             self.dispatchGroup.leave()
             switch res {
             case .success(let topGrossoing):
@@ -158,7 +158,7 @@ extension CompositionalController {
         }
         
         dispatchGroup.enter()
-        Service.share.fetchTopFree { (res) in
+        APIServices.share.fetchTopFree { (res) in
             self.dispatchGroup.leave()
             switch res {
             case .success(let topFreeApps):

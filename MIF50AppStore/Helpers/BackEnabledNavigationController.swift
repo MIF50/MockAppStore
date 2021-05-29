@@ -15,8 +15,6 @@ class BackEnabledNavigationController: UINavigationController, UIGestureRecogniz
         print("viewDidAppear")
 
         self.interactivePopGestureRecognizer?.delegate = self
-        
-
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

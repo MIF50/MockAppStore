@@ -29,10 +29,10 @@ class MusicLoadingFooter: UICollectionReusableView {
     }
     
     fileprivate func arrangeLayout(){
-        let verticalSV = VStackView(arrangedSubViews: [aiv,label], spacing: 4)
-        verticalSV.alignment = .center
-        addSubview(verticalSV)
-        verticalSV.centerInSuperview()
+        let vstack = VStackView(arrangedSubViews: [aiv,label], spacing: 4)
+        vstack.alignment = .center
+        addSubview(vstack)
+        vstack.centerInSuperview()
     }
     
     required init?(coder: NSCoder) {

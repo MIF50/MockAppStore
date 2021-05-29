@@ -75,7 +75,7 @@ class TodayController: BaseListContoller {
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
-        Service.share.fetchGames { (res) in
+        APIServices.share.fetchGames { (res) in
             dispatchGroup.leave()
             switch res {
             case .success(let appGroup):
@@ -85,7 +85,7 @@ class TodayController: BaseListContoller {
             }
         }
         dispatchGroup.enter()
-        Service.share.fetchTopGrossing { (res) in
+        APIServices.share.fetchTopGrossing { (res) in
             dispatchGroup.leave()
             switch res {
             case .success(let appGroup):
