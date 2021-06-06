@@ -8,9 +8,6 @@
 
 import UIKit
 
-// MARK:- CellIds
-fileprivate let cellId = "Cell"
-
 class SearchAppVC: UIViewController {
     
     // MARK:- Views
@@ -19,7 +16,6 @@ class SearchAppVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
     private let searchConttoller = UISearchController(searchResultsController: nil)
     
     private let enterSearchTermLabel: UILabel = {
@@ -38,9 +34,9 @@ class SearchAppVC: UIViewController {
     
     override func loadView() {
         super.loadView()
+        collectionView.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.fillSuperview()
-        collectionView.backgroundColor = .white
         collectionView.addSubview(enterSearchTermLabel)
         enterSearchTermLabel.fillSuperview(
             padding: .init(top: 100, left: 50, bottom: 0, right: 50)
@@ -50,17 +46,7 @@ class SearchAppVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchBar()
-        hander.setup(collectionView)
-        hander.hideSearchTermLabel = { count in
-            self.enterSearchTermLabel.isHidden = count != 0
-        }
-        //Actions
-        hander.didTapSearchCell = { trackId in
-            let appId = String(trackId)
-            let appDetailVC = AppDetailsController(appId: appId)
-            self.navigationController?.pushViewController(appDetailVC, animated: true)
-        }
-        
+        configureHandler()
     }
     
     private func configureSearchBar() {
@@ -72,6 +58,19 @@ class SearchAppVC: UIViewController {
         searchConttoller.obscuresBackgroundDuringPresentation = false
         searchConttoller.becomeFirstResponder()
         searchConttoller.searchBar.delegate = self
+    }
+    
+    private func configureHandler() {
+        hander.setup(collectionView)
+        hander.hideSearchTermLabel = { count in
+            self.enterSearchTermLabel.isHidden = count != 0
+        }
+        //Actions
+        hander.didTapSearchCell = { trackId in
+            let appId = String(trackId)
+            let appDetailVC = AppDetailsController(appId: appId)
+            self.navigationController?.pushViewController(appDetailVC, animated: true)
+        }
     }
     
     /// fetch itunes apps form internet
@@ -105,6 +104,8 @@ extension SearchAppVC : UISearchBarDelegate {
 
 // MARK:- SearchAppHandler
 class SearchAppHandler: NSObject,UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+    // MARK:- CellIds
+    fileprivate let cellId = "Cell"
     
     var indexData = [ResultApp]()
     var hideSearchTermLabel:((Int)->Void)?

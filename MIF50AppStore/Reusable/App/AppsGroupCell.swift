@@ -11,10 +11,18 @@ import UIKit
 
 class AppsGroupCell: UICollectionViewCell {
     
-    let titleLabel = UILabel(text: "App Section", font: UIFont.boldSystemFont(ofSize: 30))
+    var appGroup: AppGroup! {
+        didSet {
+            titleLabel.text = appGroup.feed.title
+            horizontalViewController.appGroup = appGroup
+        }
+    }
+    
+    // MARK:- Views
+    private let titleLabel = UILabel(text: "App Section", font: UIFont.boldSystemFont(ofSize: 30))
     
     /// create horizontal view controller in side cell for nested collection view
-    let horizontalViewController = AppsHorizontalController()
+    let horizontalViewController = AppsHorizontalVC()
 
     
     override init(frame: CGRect) {
@@ -31,8 +39,12 @@ class AppsGroupCell: UICollectionViewCell {
         )
         
         addSubview(horizontalViewController.view)
-        horizontalViewController.view.backgroundColor = .blue
-        horizontalViewController.view.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
+        horizontalViewController.view.anchor(
+            top: titleLabel.bottomAnchor,
+            leading: leadingAnchor,
+            bottom: bottomAnchor,
+            trailing: trailingAnchor
+        )
     }
     
     required init?(coder: NSCoder) {

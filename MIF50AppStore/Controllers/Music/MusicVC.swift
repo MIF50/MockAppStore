@@ -8,10 +8,6 @@
 
 import UIKit
 
-// MARK:- CellIDs
-fileprivate let tractorCellId = "tractorCellId"
-fileprivate let musicLoadingFooterId = "musicLoadingFooterId"
-
 class MusicVC: UIViewController {
     
     // MARK:- Views    
@@ -82,6 +78,10 @@ class MusicVC: UIViewController {
 
 // MARK:- Handler
 class MusicHandler: NSObject, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+    
+    // MARK:- CellIDs
+    fileprivate let tractorCellId = "tractorCellId"
+    fileprivate let musicLoadingFooterId = "musicLoadingFooterId" 
     
     // MARK:- Pagination
     private(set) var offsetPage = 0

@@ -47,7 +47,6 @@ class SnappingLayout: UICollectionViewFlowLayout {
         }
         
         print("page number after = \(pageNumber), itemSpace = \(itemSpace)")
-        
         let nearestPageOffset = pageNumber * itemSpace
         print(" nearestPageOffset \(nearestPageOffset)")
 

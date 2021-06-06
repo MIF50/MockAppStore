@@ -1,20 +1,21 @@
 //
-//  AppsController.swift
+//  AppsPageVC.swift
 //  MIF50AppStore
 //
-//  Created by BeInMedia on 2/3/20.
-//  Copyright © 2020 MIF50. All rights reserved.
+//  Created by MIF50 on 06/06/2021.
+//  Copyright © 2021 MIF50. All rights reserved.
 //
 
 import UIKit
 
-class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout {
+class AppsPageVC: UIViewController {
     
-    fileprivate let cellId = "cell"
-    fileprivate let headerId = "headerId"
-    
-    fileprivate var groups = [AppGroup]()
-    fileprivate var socialApps = [SocialApp]()
+    // MARK:- Views
+    private let collectionView: UICollectionView = {
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        return collection
+    }()
     
     // create load indicator
     let activityIndicatorView : UIActivityIndicatorView = {
@@ -25,20 +26,31 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
         return avi
     }()
     
+    // MARK:- Handler
+    private let handler = AppsPageHandler()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCollectionView()
+        configureActivityindicator()
+        fetchApps()
+    }
+    
+    private func configureCollectionView() {
         collectionView.backgroundColor = .white
-        
-        //
+        view.addSubview(collectionView)
+        collectionView.fillSuperview()
+        handler.setup(collectionView)
+        handler.didTapHeader = { feedResult in
+            let controller = AppDetailsController(appId: feedResult.id)
+            controller.title = feedResult.name
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
+    private func configureActivityindicator() {
         view.addSubview(activityIndicatorView)
         activityIndicatorView.fillSuperview()
-        
-        /// register collection view
-        collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: cellId)
-        /// step 1 for header - register for header in collection view
-        collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
-        
-        fetchApps()
     }
     
     fileprivate func fetchApps(){
@@ -50,7 +62,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
             dispatchGroup.leave()
             switch response {
             case .success(let appGoup):
-                self.groups.append(appGoup)
+                self.handler.groups.append(appGoup)
             case .failure(let error):
                 print(error)
             }
@@ -61,7 +73,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
             dispatchGroup.leave()
             switch response {
             case .success(let appGroup):
-                self.groups.append(appGroup)
+                self.handler.groups.append(appGroup)
             case .failure(let error):
                 print(error)
             }
@@ -72,7 +84,7 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
             dispatchGroup.leave()
             switch response {
             case .success(let appGroup):
-                self.groups.append(appGroup)
+                self.handler.groups.append(appGroup)
             case .failure(let error):
                 print(error)
             }
@@ -83,33 +95,51 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
             dispatchGroup.leave()
             switch response {
             case .success(let socialApps):
-                self.socialApps = socialApps
+                self.handler.socialApps = socialApps
             case .failure(let error):
                 print(error)
             }
         }
         
-        
         // completion
         dispatchGroup.notify(queue: .main){
+            print("dispathGroup.notify")
             self.activityIndicatorView.stopAnimating()
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
         }
     }
+}
+
+// MARK:- AppsPageHandler
+class AppsPageHandler: NSObject,UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+    // MARK:- CellIds
+    fileprivate let cellId = "cell"
+    fileprivate let headerId = "headerId"
+    
+    var groups = [AppGroup]()
+    var socialApps = [SocialApp]()
+    var didTapHeader:((FeedResult)->Void)?
+    
+    func setup(_ collectionView: UICollectionView) {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        /// step 1 for header - register for header in collection view
+        collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        /// register collection view
+        collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: cellId)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
     
     /// step 2 for header -  use  register and resuable for cell of UICollectionViewReusableView
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! AppsPageHeader
-        headerCell.appsHeaderHorizontalController.socialApps = self.socialApps
-        headerCell.appsHeaderHorizontalController.collectionView.reloadData()
-        
+        headerCell.socialApps = socialApps
         return headerCell
     }
     
@@ -119,21 +149,17 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
     }
     
     /// return number of cell in collection view
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return groups.count
     }
     
     /// use register UICollectionViewCell and reusable for collection view and pass data for it
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppsGroupCell
         let appGroup = groups[indexPath.item]
-        cell.titleLabel.text = appGroup.feed.title
-        cell.horizontalViewController.appGroup = appGroup
-        cell.horizontalViewController.collectionView.reloadData()
+        cell.appGroup = appGroup
         cell.horizontalViewController.didSelectHandler = { [weak self] feedResult in
-            let controller = AppDetailsController(appId: feedResult.id)
-            controller.title = feedResult.name
-            self?.navigationController?.pushViewController(controller, animated: true)
+            self?.didTapHeader?(feedResult)
         }
         return cell
     }
@@ -141,17 +167,11 @@ class AppsPageController: BaseListContoller, UICollectionViewDelegateFlowLayout 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: collectionView.frame.width, height: 300)
     }
-    /// inset padding for collection view  insetForSectionAt 
+    /// inset padding for collection view  insetForSectionAt
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 16, left: 0, bottom: 0, right: 0)
     }
 }
-
-
-
-
-
-
 
 
 ///  to preview desing form SwiftUI
@@ -162,13 +182,13 @@ import SwiftUI
 struct AppsPageController_Preview : PreviewProvider {
     
     static var previews: some View {
-         ContainerView().edgesIgnoringSafeArea(.all)
+        ContainerView().edgesIgnoringSafeArea(.all)
     }
     
     struct ContainerView: UIViewControllerRepresentable  {
         
         func makeUIViewController(context: UIViewControllerRepresentableContext<AppsPageController_Preview.ContainerView>) -> UIViewController {
-            return AppsPageController()
+            return AppsPageVC()
         }
         
         func updateUIViewController(_ uiViewController: AppsPageController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AppsPageController_Preview.ContainerView>) {
@@ -176,6 +196,4 @@ struct AppsPageController_Preview : PreviewProvider {
         }
     }
 }
-
-
 #endif

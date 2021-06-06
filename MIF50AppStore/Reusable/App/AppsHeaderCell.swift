@@ -27,8 +27,6 @@ class AppsHeaderCell: UICollectionViewCell {
         
         initView()
         arrangeLayout()
-        
-        
     }
     
     private func initView() {

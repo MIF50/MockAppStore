@@ -15,8 +15,6 @@ class TodayController: BaseListContoller {
     var appGame: AppGroup?
     var topGrossing: AppGroup?
     
-
-    
     // create load indicator
       let activityIndicatorView : UIActivityIndicatorView = {
           let avi = UIActivityIndicatorView(style: .large)
@@ -148,7 +146,6 @@ extension TodayController {
         fullMultipleVC.modalPresentationStyle = .fullScreen
         fullMultipleVC.feedResults = self.items[indexPath.item].feedResults
         let navC = BackEnabledNavigationController(rootViewController: fullMultipleVC)
-//        let navC = UINavigationController.init(rootViewController: fullMultipleVC)
         navC.modalPresentationStyle = .fullScreen
         navC.setNavigationBarHidden(true, animated: false)
         present(navC, animated: true)
@@ -407,10 +404,7 @@ struct TodayController_Preview: PreviewProvider {
         }
         
         func updateUIViewController(_ uiViewController: TodayController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<TodayController_Preview.ContainerView>) {
-            
         }
-        
-        
     }
 }
 

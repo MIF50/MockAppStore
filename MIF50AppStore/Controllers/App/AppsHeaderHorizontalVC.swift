@@ -8,47 +8,66 @@
 
 import UIKit
 
-class AppsHeaderHorizontalController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
+class AppsHeaderHorizontalVC: UIViewController {
     
-    fileprivate let cellId = "cellId"
-    
-    var socialApps = [SocialApp]()
-    
+    // MARK:- Views
+    private let collectionView: UICollectionView = {
+        let layout = BetterSnapingLayout()
+        layout.scrollDirection = .horizontal
+        let collection = UICollectionView(frame: .zero,collectionViewLayout: layout)
+        collection.decelerationRate = .fast
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        return collection
+    }()
+        
+    private let handler = AppHeaderHandler()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.backgroundColor = .white
-        /// register collection view
-        collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
-
+        configureCollectionView()
     }
+    
+    private func configureCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.fillSuperview()
+        collectionView.backgroundColor = .white
+        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
+    func addSocialApps(apps: [SocialApp]) {
+        handler.setup(collectionView)
+        handler.indexData = apps
+        collectionView.reloadData()
+    }
+}
+
+class AppHeaderHandler: NSObject, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+    fileprivate let cellId = "cellId"
+
+    var indexData = [SocialApp]()
+    
+    func setup(_ collectionView: UICollectionView) {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: cellId)
+        
+    }
+    
     // number of items in section in collection view
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return socialApps.count
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return indexData.count
     }
     /// resuse cell for item at index path in collection view
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppsHeaderCell
-        cell.socialApp = socialApps[indexPath.item]
+        cell.socialApp = indexData[indexPath.item]
         return cell
     }
     /// return width and height of  in collection view cell size for item at index path
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: collectionView.frame.width - 40 , height: collectionView.frame.height)
     }
-    
-    
-    
-    
 }
-
-
-
-
-
-
-
 
 ///  to preview desing form SwiftUI
 #if canImport(SwiftUI) && DEBUG
@@ -64,7 +83,7 @@ struct AppsHeaderHorizontalController_Preview : PreviewProvider {
     struct ContainerView: UIViewControllerRepresentable  {
         
         func makeUIViewController(context: UIViewControllerRepresentableContext<AppsHeaderHorizontalController_Preview.ContainerView>) -> UIViewController {
-            return AppsHeaderHorizontalController()
+            return AppsHeaderHorizontalVC()
         }
         
         func updateUIViewController(_ uiViewController: AppsHeaderHorizontalController_Preview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<AppsHeaderHorizontalController_Preview.ContainerView>) {
